@@ -19,6 +19,10 @@ final public class UserService {
         return userRepository.findById(id);
     }
 
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public User register(UserRegister userRegister) throws UserExistsException, InvalidRequestException {
         if (userRepository.existsByUsername(userRegister.username())) {
             throw new UserExistsException("User with that username exists");

@@ -32,6 +32,10 @@ public class User {
         this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
+    public boolean validPassword(String password) {
+        return hash(password).equals(passwordHash);
+    }
+
     public static User register(UserRegister userRegister) {
         return new User(userRegister.username(), hash(userRegister.password().password()));
     }
