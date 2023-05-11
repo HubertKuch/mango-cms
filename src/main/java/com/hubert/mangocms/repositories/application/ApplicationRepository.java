@@ -1,6 +1,11 @@
 package com.hubert.mangocms.repositories.application;
 
 import com.hubert.mangocms.domain.models.app.Application;
+import com.hubert.mangocms.domain.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ApplicationRepository extends JpaRepository<Application, String> {}
+import java.util.List;
+
+public interface ApplicationRepository extends JpaRepository<Application, String> {
+    List<Application> findByUser(User user);
+}

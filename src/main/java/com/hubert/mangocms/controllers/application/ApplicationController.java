@@ -8,12 +8,20 @@ import com.hubert.mangocms.services.application.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/application")
 final public class ApplicationController {
 
     private final ApplicationService applicationService;
+
+    @Restricted
+    @GetMapping("/")
+    public List<Application> getApplications(@RequestAttribute User user) {
+        return applicationService.findApplicationsOfUser(user);
+    }
 
     @Restricted
     @PostMapping("/")
@@ -23,5 +31,4 @@ final public class ApplicationController {
     ) {
         return applicationService.createApplication(user, createApplication);
     }
-
 }

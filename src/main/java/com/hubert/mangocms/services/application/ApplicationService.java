@@ -7,6 +7,8 @@ import com.hubert.mangocms.repositories.application.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 final public class ApplicationService {
@@ -18,5 +20,9 @@ final public class ApplicationService {
         applicationRepository.save(application);
 
         return application;
+    }
+
+    public List<Application> findApplicationsOfUser(User user) {
+        return applicationRepository.findByUser(user);
     }
 }
