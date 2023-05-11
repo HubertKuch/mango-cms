@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hubert.mangocms.domain.requests.users.UserRegister;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,6 +20,7 @@ public class User {
     @Id
     private String id = UUID.randomUUID().toString();
     private String username;
+    @JsonIgnore
     private String passwordHash;
     private Timestamp registeredAt;
     private Timestamp updatedAt;
