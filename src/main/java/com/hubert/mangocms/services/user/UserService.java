@@ -1,12 +1,11 @@
 package com.hubert.mangocms.services.user;
 
-import com.hubert.mangocms.domain.exceptions.InvalidRequestException;
+import com.hubert.mangocms.domain.exceptions.internal.InvalidRequestException;
 import com.hubert.mangocms.domain.exceptions.user.UserExistsException;
 import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.requests.users.UserRegister;
 import com.hubert.mangocms.repositories.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
