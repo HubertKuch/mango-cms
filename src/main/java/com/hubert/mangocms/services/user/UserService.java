@@ -4,14 +4,14 @@ import com.hubert.mangocms.domain.exceptions.InvalidRequestException;
 import com.hubert.mangocms.domain.exceptions.user.UserExistsException;
 import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.requests.users.UserRegister;
-import com.hubert.mangocms.domain.responses.BaseResponse;
 import com.hubert.mangocms.repositories.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @RequiredArgsConstructor
-public class UserService {
+final public class UserService {
     private final UserRepository userRepository;
 
     public User register(UserRegister userRegister) throws UserExistsException, InvalidRequestException {
