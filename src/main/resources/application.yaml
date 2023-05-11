@@ -1,3 +1,7 @@
 server:
   error:
     include-message: always
+jwt:
+  secret: test
+  issuer: Mango
+  expire-duration: 2D
