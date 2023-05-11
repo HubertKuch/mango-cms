@@ -40,7 +40,7 @@ public class User {
         return new User(userRegister.username(), hash(userRegister.password().password()));
     }
 
-    private static String hash(String password) {
+    public static String hash(String password) {
         return DigestUtils.sha256Hex(password);
     }
 }

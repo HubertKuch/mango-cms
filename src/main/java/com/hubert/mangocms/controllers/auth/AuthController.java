@@ -7,7 +7,6 @@ import com.hubert.mangocms.services.auth.AuthService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login/")
-    public BaseResponse baseResponse(@RequestBody LoginCredentials loginCredentials, HttpServletResponse response) throws InvalidRequestException {
+    public BaseResponse baseResponse(
+            @RequestBody LoginCredentials loginCredentials, HttpServletResponse response
+    ) throws InvalidRequestException {
         Cookie authCookie = authService.login(loginCredentials);
 
         response.addCookie(authCookie);
