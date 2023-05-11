@@ -15,18 +15,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.context.request.WebRequestInterceptor;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.util.ContentCachingRequestWrapper;
 
 import java.time.Duration;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -49,7 +45,11 @@ class RestrictedAnnotationInterceptorTest {
         this.userRepository = userRepository;
         this.authService = authService;
 
-        restrictedAnnotationInterceptor = new RestrictedAnnotationInterceptor(mock(WebRequestInterceptor.class), authConfiguration, authService, userService);
+        restrictedAnnotationInterceptor = new RestrictedAnnotationInterceptor(mock(WebRequestInterceptor.class),
+                authConfiguration,
+                authService,
+                userService
+        );
     }
 
     @Test
@@ -62,9 +62,12 @@ class RestrictedAnnotationInterceptorTest {
 
         when(handlerMethod.hasMethodAnnotation(Restricted.class)).thenReturn(true);
         String token = authService.tokenize(user);
-        when(httpServletRequest.getCookies()).thenReturn(new Cookie[] { new Cookie("token", token) });
+        when(httpServletRequest.getCookies()).thenReturn(new Cookie[]{new Cookie("token", token)});
 
-        boolean result = restrictedAnnotationInterceptor.preHandle(httpServletRequest, mock(HttpServletResponse.class), handlerMethod);
+        boolean result = restrictedAnnotationInterceptor.preHandle(httpServletRequest,
+                mock(HttpServletResponse.class),
+                handlerMethod
+        );
 
         assertTrue(result);
     }
@@ -79,9 +82,14 @@ class RestrictedAnnotationInterceptorTest {
 
         when(handlerMethod.hasMethodAnnotation(Restricted.class)).thenReturn(true);
         String token = authService.tokenize(user);
-        when(httpServletRequest.getCookies()).thenReturn(new Cookie[] { new Cookie("token", token) });
+        when(httpServletRequest.getCookies()).thenReturn(new Cookie[]{new Cookie("token", token)});
 
-        assertThrows(AuthenticationException.class, () -> restrictedAnnotationInterceptor.preHandle(httpServletRequest, mock(HttpServletResponse.class), handlerMethod));
+        assertThrows(AuthenticationException.class,
+                () -> restrictedAnnotationInterceptor.preHandle(httpServletRequest,
+                        mock(HttpServletResponse.class),
+                        handlerMethod
+                )
+        );
     }
 
     @Test
@@ -91,6 +99,9 @@ class RestrictedAnnotationInterceptorTest {
 
         when(handlerMethod.hasMethodAnnotation(Restricted.class)).thenReturn(false);
 
-        assertTrue(restrictedAnnotationInterceptor.preHandle(httpServletRequest, mock(HttpServletResponse.class), handlerMethod));
+        assertTrue(restrictedAnnotationInterceptor.preHandle(httpServletRequest,
+                mock(HttpServletResponse.class),
+                handlerMethod
+        ));
     }
 }
