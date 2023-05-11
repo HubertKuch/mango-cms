@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    username: user
+    password: user
+    url: jdbc:h2:mem:mango_cms;MODE=MYSQL
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: none
+jwt:
+  secret: test
+  issuer: Mango
+  expire-duration: 2D
+auth:
+  cookie:
+    is-http-only: false
+    is-secure: false
+    name: token

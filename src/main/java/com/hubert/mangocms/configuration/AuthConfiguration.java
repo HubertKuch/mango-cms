@@ -8,14 +8,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "auth")
 public class AuthConfiguration {
-    private AuthCookieConfiguration authCookieConfiguration;
+    private AuthCookieConfiguration cookie;
 
     @Data
     @Configuration
-    @ConfigurationProperties(prefix = "cookie")
     public static class AuthCookieConfiguration {
-        private String name;
-        private boolean isHttpOnly;
-        private boolean isSecure;
+        private String name = "token";
+        private boolean isHttpOnly = false;
+        private boolean isSecure = false;
     }
 }

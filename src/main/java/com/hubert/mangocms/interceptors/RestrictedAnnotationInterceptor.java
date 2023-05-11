@@ -47,7 +47,7 @@ public class RestrictedAnnotationInterceptor extends WebRequestHandlerIntercepto
             return true;
         }
 
-        Cookie cookie = WebUtils.getCookie(request, authConfiguration.getAuthCookieConfiguration().getName());
+        Cookie cookie = WebUtils.getCookie(request, authConfiguration.getCookie().getName());
 
         if (cookie == null) {
             throw new AuthenticationException("Missing authentication cookie.");

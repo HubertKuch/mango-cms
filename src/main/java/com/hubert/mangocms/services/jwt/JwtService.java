@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,11 @@ public class JwtService {
     private final Duration expiringDuration;
     private final JWTVerifier jwtVerifier;
 
+    @Autowired
     public JwtService(
-            @Value("jwt.secret") String secret,
-            @Value("jwt.issuer") String issuer,
-            @Value("jwt.expiringDuration") Duration expiringDuration
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.issuer}") String issuer,
+            @Value("${jwt.expire-duration}") Duration expiringDuration
     ) {
         this.algorithm = Algorithm.HMAC256(secret);
         this.issuer = issuer;

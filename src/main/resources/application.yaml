@@ -5,3 +5,16 @@ jwt:
   secret: test
   issuer: Mango
   expire-duration: 2D
+auth:
+  cookie:
+    is-http-only: false
+    is-secure: false
+    name: token
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: false
+    url: jdbc:mysql://172.17.0.2:3306/mango_cms?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=true&connectionTimeZone=Europe/Warsaw&serverTimezone=UTC&&useLegacyDatetimeCode=false
+    username: user
+    password: user
