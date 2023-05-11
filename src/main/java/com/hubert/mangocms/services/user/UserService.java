@@ -8,10 +8,16 @@ import com.hubert.mangocms.repositories.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 final public class UserService {
     private final UserRepository userRepository;
+
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
+    }
 
     public User register(UserRegister userRegister) throws UserExistsException, InvalidRequestException {
         if (userRepository.existsByUsername(userRegister.username())) {
