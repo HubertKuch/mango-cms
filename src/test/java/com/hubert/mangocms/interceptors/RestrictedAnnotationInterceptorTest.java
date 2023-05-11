@@ -40,7 +40,7 @@ class RestrictedAnnotationInterceptorTest {
     void setUp() {
         UserRepository userRepository = mock(UserRepository.class);
         UserService userService = new UserService(userRepository);
-        AuthService authService = new AuthService(new JwtService("test", "mango", Duration.ofDays(2)));
+        AuthService authService = new AuthService(new JwtService("test", "mango", Duration.ofDays(2)), authConfiguration);
 
         this.userRepository = userRepository;
         this.authService = authService;

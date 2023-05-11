@@ -1,5 +1,6 @@
 package com.hubert.mangocms.services.auth;
 
+import com.hubert.mangocms.configuration.AuthConfiguration;
 import com.hubert.mangocms.domain.exceptions.auth.TokenExpiredException;
 import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.services.jwt.JwtService;
@@ -18,7 +19,7 @@ class AuthServiceTest {
     @BeforeEach
     void setUp() {
         this.jwtService = new JwtService("test", "Mango", Duration.ofDays(2));
-        this.authService = new AuthService(jwtService);
+        this.authService = new AuthService(jwtService, new AuthConfiguration());
     }
 
     @Test
@@ -30,7 +31,7 @@ class AuthServiceTest {
 
     @Test
     void givenExpiredToken_shouldThrowException() {
-        this.authService = new AuthService(new JwtService("test", "test", Duration.ofDays(-1)));
+        this.authService = new AuthService(new JwtService("test", "test", Duration.ofDays(-1)), new AuthConfiguration());
 
         String token = authService.tokenize(new User(UUID.randomUUID().toString(), "test", "test", null, null));
 

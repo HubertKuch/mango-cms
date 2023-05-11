@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
+
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "auth")
@@ -16,5 +18,6 @@ public class AuthConfiguration {
         private String name = "token";
         private boolean isHttpOnly = false;
         private boolean isSecure = false;
+        private Duration age = Duration.ofDays(2);
     }
 }
