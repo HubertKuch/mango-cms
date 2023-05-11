@@ -44,6 +44,7 @@ CREATE TABLE blog_field_definitions
     name    TEXT        NOT NULL,
     type    TEXT        NOT NULL,
     blog_id VARCHAR(36) REFERENCES blogs (id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE blog_field_representation

@@ -20,13 +20,13 @@ public class ApplicationFieldDefinitionService {
     public ApplicationFieldDefinition addDefinition(String applicationId, CreateDefinition createDefinition) throws
             InvalidRequestException,
             ConflictException {
-        if (definitionRepository.existsByName(createDefinition.name())) {
-            throw new ConflictException("Field with that name already exists");
-        }
-
         Application application = applicationService.findById(applicationId)
                                                     .orElseThrow(() -> new InvalidRequestException(
                                                             "Application doesn't exists"));
+
+        if (definitionRepository.existsByNameAndApplication(createDefinition.name(), application)) {
+            throw new ConflictException("Field with that name already exists");
+        }
 
         ApplicationFieldDefinition definition = new ApplicationFieldDefinition(createDefinition.name(),
                 createDefinition.isRequired(),
@@ -39,7 +39,19 @@ public class ApplicationFieldDefinitionService {
         return definition;
     }
 
+    public ApplicationFieldDefinition removeDefinition(String applicationId, String definitionId) throws
+            InvalidRequestException {
+        applicationService.findById(applicationId)
+                          .orElseThrow(() -> new InvalidRequestException("Application doesn't exists"));
 
+        ApplicationFieldDefinition fieldDefinition = definitionRepository.findById(definitionId)
+                                                                         .orElseThrow(() -> new InvalidRequestException(
+                                                                                 "Field doesn't exists on this application"));
+
+        definitionRepository.deleteById(definitionId);
+
+        return fieldDefinition;
+    }
 
     public List<ApplicationFieldDefinition> findDefinitionsByApplication(Application application) {
         return definitionRepository.findAllByApplication(application);

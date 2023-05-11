@@ -2,13 +2,12 @@ package com.hubert.mangocms.domain.models.app;
 
 import com.hubert.mangocms.domain.models.blog.Blog;
 import com.hubert.mangocms.domain.models.blog.fields.FieldType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.UUID;
 
@@ -16,6 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity(name = "blogs")
 @RequiredArgsConstructor
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class ApplicationFieldDefinition {
     @Id
     private String id = UUID.randomUUID().toString();

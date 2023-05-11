@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ApplicationFieldDefinitionRepository extends JpaRepository<ApplicationFieldDefinition, String> {
     List<ApplicationFieldDefinition> findAllByApplication(Application application);
-    boolean existsByName(String name);
+    boolean existsByNameAndApplication(String name, Application application);
 }
