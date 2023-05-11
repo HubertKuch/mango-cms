@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -24,4 +23,11 @@ public class Application {
     @OneToOne
     @JoinColumn(name = "id")
     private ApplicationKeys keys;
+
+    public Application(String name, User user) {
+        this.name = name;
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.user = user;
+        this.keys = ApplicationKeys.from(this);
+    }
 }
