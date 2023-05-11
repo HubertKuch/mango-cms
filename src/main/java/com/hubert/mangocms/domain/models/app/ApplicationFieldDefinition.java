@@ -1,6 +1,7 @@
-package com.hubert.mangocms.domain.models.blog.fields;
+package com.hubert.mangocms.domain.models.app;
 
 import com.hubert.mangocms.domain.models.blog.Blog;
+import com.hubert.mangocms.domain.models.blog.fields.FieldType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -23,12 +24,12 @@ public class ApplicationFieldDefinition {
     private FieldType type;
     @ManyToOne
     @JoinColumn(name = "blog_id")
-    private Blog blog;
+    private Application application;
 
-    public ApplicationFieldDefinition(String name, boolean isRequired, FieldType type, Blog blog) {
+    public ApplicationFieldDefinition(String name, boolean isRequired, FieldType type, Application application) {
         this.name = name;
         this.isRequired = isRequired;
         this.type = type;
-        this.blog = blog;
+        this.application = application;
     }
 }

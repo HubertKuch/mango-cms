@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.blog.fields;
 
+import com.hubert.mangocms.domain.models.app.ApplicationFieldDefinition;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity(name = "blogs")
 @RequiredArgsConstructor
-public class ApplicationFieldRepresentation {
+public class ApplicationBlogFieldRepresentation {
     @Id
     private String id = UUID.randomUUID().toString();
     private String defaultValue;
@@ -23,7 +24,7 @@ public class ApplicationFieldRepresentation {
     @JoinColumn(name = "field_definition_id")
     private ApplicationFieldDefinition definition;
 
-    public ApplicationFieldRepresentation(String defaultValue, String value, ApplicationFieldDefinition definition) {
+    public ApplicationBlogFieldRepresentation(String defaultValue, String value, ApplicationFieldDefinition definition) {
         this.defaultValue = defaultValue;
         this.value = value;
         this.definition = definition;
