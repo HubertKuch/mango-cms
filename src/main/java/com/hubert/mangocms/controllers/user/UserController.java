@@ -7,26 +7,19 @@ import com.hubert.mangocms.domain.requests.users.UserRegister;
 import com.hubert.mangocms.services.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-public class UserController {
+final public class UserController {
 
     private final UserService userService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register/")
-    public ResponseEntity<?> register(@RequestBody UserRegister userRegister) throws
-            UserExistsException,
-            InvalidRequestException {
-        User user = userService.register(userRegister);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    public User register(@RequestBody UserRegister userRegister) throws UserExistsException, InvalidRequestException {
+        return userService.register(userRegister);
     }
 
 }
