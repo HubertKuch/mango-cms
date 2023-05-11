@@ -39,10 +39,9 @@ class JwtServiceTest {
     }
 
     @Test
-    void givenExpiredToken_shouldReturnNull() throws InterruptedException {
+    void givenExpiredToken_shouldReturnNull() {
         JwtService expiredService = new JwtService("test", "Mango", Duration.ofMinutes(-2));
         String token = expiredService.tokenize("id", UUID.randomUUID().toString());
-
 
         DecodedJWT decodedJWT = expiredService.decode(token);
 
