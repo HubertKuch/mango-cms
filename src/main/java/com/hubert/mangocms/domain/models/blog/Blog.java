@@ -1,0 +1,27 @@
+package com.hubert.mangocms.domain.models.blog;
+
+import com.hubert.mangocms.domain.models.app.Application;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import java.sql.Timestamp;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+@Entity(name = "blogs")
+@RequiredArgsConstructor
+public class Blog {
+    @Id
+    private String id = UUID.randomUUID().toString();
+    @ManyToOne
+    @JoinColumn(name = "application_id")
+    private Application application;
+    private Timestamp createAt;
+    private Timestamp updatedAt;
+}
