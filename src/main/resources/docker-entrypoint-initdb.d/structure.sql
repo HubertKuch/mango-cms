@@ -3,7 +3,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 CREATE TABLE users
 (
     id            VARCHAR(36) NOT NULL DEFAULT UUID() PRIMARY KEY,
-    username      TEXT        NOT NULL,
+    username      TEXT UNIQUE NOT NULL,
     password_hash TEXT        NOT NULL,
     registered_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP()
