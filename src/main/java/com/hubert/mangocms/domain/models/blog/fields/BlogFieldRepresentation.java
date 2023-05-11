@@ -17,12 +17,14 @@ import java.util.UUID;
 public class BlogFieldRepresentation {
     @Id
     private String id = UUID.randomUUID().toString();
+    private String defaultValue;
     private String value;
     @ManyToOne
     @JoinColumn(name = "field_definition_id")
     private BlogFieldDefinition blogFieldDefinition;
 
-    public BlogFieldRepresentation(String value, BlogFieldDefinition blogFieldDefinition) {
+    public BlogFieldRepresentation(String defaultValue, String value, BlogFieldDefinition blogFieldDefinition) {
+        this.defaultValue = defaultValue;
         this.value = value;
         this.blogFieldDefinition = blogFieldDefinition;
     }
