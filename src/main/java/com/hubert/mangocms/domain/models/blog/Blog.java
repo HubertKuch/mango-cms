@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Entity(name = "blogs")
+@AllArgsConstructor
 public class Blog {
     @Id
     private String id = UUID.randomUUID().toString();
