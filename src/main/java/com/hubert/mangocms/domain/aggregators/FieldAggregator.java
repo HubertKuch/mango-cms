@@ -18,7 +18,7 @@ public class FieldAggregator {
                 aggregateValueByType(representation.getValue(), representation.getDefinition().getType()),
                 representation.getDefinition().getType(),
                 representation.getDefinition().isRequired(),
-                representation.getDefaultValue()
+                aggregateValueByType(representation.getDefaultValue(), representation.getDefinition().getType())
         );
     }
 
@@ -28,7 +28,7 @@ public class FieldAggregator {
                 case INTEGER -> Integer.valueOf(value);
                 case REAL -> Double.valueOf(value);
                 case BOOLEAN -> Boolean.valueOf(value);
-                default -> type;
+                default -> value;
             };
         } catch (Throwable throwable) {
             return value;
