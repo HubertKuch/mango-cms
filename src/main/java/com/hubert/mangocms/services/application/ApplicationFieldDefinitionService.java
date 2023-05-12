@@ -27,9 +27,8 @@ public class ApplicationFieldDefinitionService {
                                                             "Application doesn't exists"));
 
         if (!application.getUser().getId().equals(user.getId())) {
-            throw new AuthenticationException("You cannot delete that field");
+            throw new AuthenticationException("This isn't your application");
         }
-
 
         if (definitionRepository.existsByNameAndApplication(createDefinition.name(), application)) {
             throw new ConflictException("Field with that name already exists");
@@ -54,7 +53,7 @@ public class ApplicationFieldDefinitionService {
                                                             "Application doesn't exists"));
 
         if (!application.getUser().getId().equals(user.getId())) {
-            throw new AuthenticationException("You cannot delete that field");
+            throw new AuthenticationException("This isn't your application");
         }
 
         ApplicationFieldDefinition fieldDefinition = definitionRepository.findById(definitionId)
