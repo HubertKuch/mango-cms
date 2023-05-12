@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.blog;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hubert.mangocms.domain.models.app.Application;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,6 +21,7 @@ public class Blog {
     private String id = UUID.randomUUID().toString();
     @ManyToOne
     @JoinColumn(name = "application_id")
+    @JsonIgnore
     private Application application;
     private Timestamp createAt;
     private Timestamp updatedAt;

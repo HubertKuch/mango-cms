@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ApplicationFieldDefinitionService {
+final public class ApplicationFieldDefinitionService {
     private final ApplicationService applicationService;
     private final ApplicationFieldDefinitionRepository definitionRepository;
 

@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.app;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hubert.mangocms.domain.models.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,11 @@ public class Application {
     private String name;
     private Timestamp createdAt;
     @ManyToOne
+    @JsonIgnore
     private User user;
     @OneToOne
     @JoinColumn(name = "id")
+    @JsonIgnore
     private ApplicationKeys keys;
 
     public Application(String name, User user) {

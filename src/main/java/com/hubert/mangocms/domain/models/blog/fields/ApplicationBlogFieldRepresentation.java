@@ -1,6 +1,7 @@
 package com.hubert.mangocms.domain.models.blog.fields;
 
 import com.hubert.mangocms.domain.models.app.ApplicationFieldDefinition;
+import com.hubert.mangocms.domain.models.blog.Blog;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -22,8 +23,11 @@ public class ApplicationBlogFieldRepresentation {
     @ManyToOne
     @JoinColumn(name = "field_definition_id")
     private ApplicationFieldDefinition definition;
+    @ManyToOne
+    @JoinColumn(name = "blog_id")
+    private Blog blog;
 
-    public ApplicationBlogFieldRepresentation(String defaultValue, String value, ApplicationFieldDefinition definition) {
+    public ApplicationBlogFieldRepresentation(String defaultValue, String value, ApplicationFieldDefinition definition, Blog blog) {
         this.defaultValue = defaultValue;
         this.value = value;
         this.definition = definition;
