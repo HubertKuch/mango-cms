@@ -18,7 +18,7 @@ public class FieldAggregator {
                 aggregateValueByType(representation.getValue(), representation.getDefinition().getType()),
                 representation.getDefinition().getType(),
                 representation.getDefinition().isRequired(),
-                aggregateValueByType(representation.getDefaultValue(), representation.getDefinition().getType())
+                aggregateValueByType(representation.getDefinition().getDefaultValue(), representation.getDefinition().getType())
         );
     }
 
