@@ -13,8 +13,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "blogs")
-@RequiredArgsConstructor
+@Entity(name = "application_field_definitions")
 @OnDelete(action = OnDeleteAction.CASCADE)
 public class ApplicationFieldDefinition {
     @Id

@@ -38,7 +38,7 @@ CREATE TABLE blogs
     application_id VARCHAR(36) REFERENCES applications (id)
 );
 
-CREATE TABLE blog_field_definitions
+CREATE TABLE application_field_definitions
 (
     id      VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT UUID(),
     name    TEXT        NOT NULL,

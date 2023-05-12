@@ -13,8 +13,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "blogs")
-@RequiredArgsConstructor
+@Entity(name = "blog_field_representation")
 public class ApplicationBlogFieldRepresentation {
     @Id
     private String id = UUID.randomUUID().toString();

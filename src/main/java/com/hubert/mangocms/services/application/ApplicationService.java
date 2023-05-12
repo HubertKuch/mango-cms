@@ -30,4 +30,8 @@ final public class ApplicationService {
     public Optional<Application> findById(String applicationId) {
         return applicationRepository.findById(applicationId);
     }
+
+    public Optional<Application> findByIdAndUser(String id, User user) {
+        return applicationRepository.findByIdAndUser(id, user);
+    }
 }

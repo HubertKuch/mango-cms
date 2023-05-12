@@ -15,7 +15,6 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Entity(name = "blogs")
-@RequiredArgsConstructor
 public class Blog {
     @Id
     private String id = UUID.randomUUID().toString();
