@@ -18,7 +18,6 @@ import java.util.UUID;
 public class ApplicationBlogFieldRepresentation {
     @Id
     private String id = UUID.randomUUID().toString();
-    private String defaultValue;
     private String value;
     @ManyToOne
     @JoinColumn(name = "field_definition_id")
@@ -27,8 +26,7 @@ public class ApplicationBlogFieldRepresentation {
     @JoinColumn(name = "blog_id")
     private Blog blog;
 
-    public ApplicationBlogFieldRepresentation(String defaultValue, String value, ApplicationFieldDefinition definition, Blog blog) {
-        this.defaultValue = defaultValue;
+    public ApplicationBlogFieldRepresentation(String value, ApplicationFieldDefinition definition, Blog blog) {
         this.value = value;
         this.definition = definition;
     }

@@ -16,4 +16,8 @@ final public class ApplicationBlogFieldRepresentationService {
     public List<ApplicationBlogFieldRepresentation> findByBlog(Blog blog) {
         return fieldRepresentationRepository.findAllByBlog(blog);
     }
+
+    public List<ApplicationBlogFieldRepresentation> saveAll(List<ApplicationBlogFieldRepresentation> fields) {
+        return fieldRepresentationRepository.saveAll(fields);
+    }
 }

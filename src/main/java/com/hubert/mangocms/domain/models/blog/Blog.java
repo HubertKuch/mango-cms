@@ -27,4 +27,10 @@ public class Blog {
     private Application application;
     private Timestamp createAt;
     private Timestamp updatedAt;
+
+    public Blog(Application application) {
+        this.application = application;
+        this.createAt = new Timestamp(System.currentTimeMillis());
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 }

@@ -22,13 +22,15 @@ public class ApplicationFieldDefinition {
     private String name;
     private boolean isRequired;
     private FieldType type;
+    private String defaultValue;
     @ManyToOne
     @JoinColumn(name = "application_id")
     private Application application;
 
-    public ApplicationFieldDefinition(String name, boolean isRequired, FieldType type, Application application) {
+    public ApplicationFieldDefinition(String name, String defaultValue, boolean isRequired, FieldType type, Application application) {
         this.name = name;
         this.isRequired = isRequired;
+        this.defaultValue = defaultValue;
         this.type = type;
         this.application = application;
     }

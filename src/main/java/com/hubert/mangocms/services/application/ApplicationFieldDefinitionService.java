@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +36,7 @@ final public class ApplicationFieldDefinitionService {
         }
 
         ApplicationFieldDefinition definition = new ApplicationFieldDefinition(createDefinition.name(),
+                createDefinition.defaultValue(),
                 createDefinition.isRequired(),
                 createDefinition.type(),
                 application
@@ -71,5 +73,9 @@ final public class ApplicationFieldDefinitionService {
                 .orElseThrow(() -> new AuthenticationException("This isn't your application"));
 
         return definitionRepository.findAllByApplicationAndApplication_User(application, user);
+    }
+
+    public Optional<ApplicationFieldDefinition> findByIdAndApplication(Application application, String id) {
+        return definitionRepository.findByApplicationAndId(application, id);
     }
 }

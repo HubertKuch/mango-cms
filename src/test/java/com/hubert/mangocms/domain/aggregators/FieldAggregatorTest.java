@@ -5,7 +5,8 @@ import com.hubert.mangocms.domain.models.blog.fields.ApplicationBlogFieldReprese
 import com.hubert.mangocms.domain.models.blog.fields.FieldType;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 class FieldAggregatorTest {
 
@@ -13,9 +14,8 @@ class FieldAggregatorTest {
 
     @Test
     void givenIntegerField_shouldParseToInt() {
-        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("2",
-                "24",
-                new ApplicationFieldDefinition("age", false, FieldType.INTEGER, null),
+        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("24",
+                new ApplicationFieldDefinition("age", "", false, FieldType.INTEGER, null),
                 null
         );
 
@@ -24,9 +24,8 @@ class FieldAggregatorTest {
 
     @Test
     void givenBooleanField_shouldParseToBoolean() {
-        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("2",
-                "false",
-                new ApplicationFieldDefinition("true", false, FieldType.BOOLEAN, null),
+        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("false",
+                new ApplicationFieldDefinition("true", "", false, FieldType.BOOLEAN, null),
                 null
         );
 
@@ -35,9 +34,8 @@ class FieldAggregatorTest {
 
     @Test
     void givenRealField_shouldParseToReal() {
-        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("2",
-                "24",
-                new ApplicationFieldDefinition("age", false, FieldType.REAL, null),
+        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("24",
+                new ApplicationFieldDefinition("age", "", false, FieldType.REAL, null),
                 null
         );
 
@@ -46,9 +44,8 @@ class FieldAggregatorTest {
 
     @Test
     void givenStringField_shouldParseToString() {
-        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("2",
-                "test",
-                new ApplicationFieldDefinition("age", false, FieldType.TEXT, null),
+        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("test",
+                new ApplicationFieldDefinition("age", "", false, FieldType.TEXT, null),
                 null
         );
 
@@ -57,9 +54,8 @@ class FieldAggregatorTest {
 
     @Test
     void givenValueNotOfType_shouldReturnAsString() {
-        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("2",
-                "test",
-                new ApplicationFieldDefinition("age", false, FieldType.REAL, null),
+        ApplicationBlogFieldRepresentation fieldRepresentation = new ApplicationBlogFieldRepresentation("test",
+                new ApplicationFieldDefinition("age", "", false, FieldType.REAL, null),
                 null
         );
 

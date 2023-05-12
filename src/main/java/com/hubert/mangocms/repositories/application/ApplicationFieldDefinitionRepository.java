@@ -6,6 +6,7 @@ import com.hubert.mangocms.domain.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ApplicationFieldDefinitionRepository extends JpaRepository<ApplicationFieldDefinition, String> {
     List<ApplicationFieldDefinition> findAllByApplication(Application application);
@@ -15,4 +16,6 @@ public interface ApplicationFieldDefinitionRepository extends JpaRepository<Appl
             Application application,
             User user
     );
+
+    Optional<ApplicationFieldDefinition> findByApplicationAndId(Application application, String id);
 }

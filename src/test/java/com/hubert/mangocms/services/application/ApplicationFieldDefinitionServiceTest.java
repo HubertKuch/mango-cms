@@ -51,7 +51,7 @@ class ApplicationFieldDefinitionServiceTest {
                 any(),
                 any()
         )).thenReturn(List.of(
-                new ApplicationFieldDefinition("name", true, FieldType.TEXT, application)
+                new ApplicationFieldDefinition("name","", true, FieldType.TEXT, application)
         ));
         when(applicationRepository.findByIdAndUser(anyString(), any())).thenReturn(Optional.of(application));
 
@@ -82,7 +82,7 @@ class ApplicationFieldDefinitionServiceTest {
         when(applicationFieldDefinitionRepository.existsByNameAndApplication(anyString(), eq(application))).thenReturn(false);
 
         assertDoesNotThrow(() -> {
-            CreateDefinition createDefinition = new CreateDefinition("name", true, FieldType.TEXT);
+            CreateDefinition createDefinition = new CreateDefinition("name",  "",true, FieldType.TEXT);
             ApplicationFieldDefinition definition = applicationFieldDefinitionService.addDefinition(application.getUser(), "", createDefinition);
 
             assertAll(
@@ -98,7 +98,7 @@ class ApplicationFieldDefinitionServiceTest {
         when(applicationRepository.findById(anyString())).thenReturn(Optional.of(application));
 
         assertThrows(AuthenticationException.class, () -> {
-            CreateDefinition createDefinition = new CreateDefinition("name", true, FieldType.TEXT);
+            CreateDefinition createDefinition = new CreateDefinition("name", "",true, FieldType.TEXT);
             applicationFieldDefinitionService.addDefinition(new User(), "", createDefinition);
         });
     }
@@ -111,7 +111,7 @@ class ApplicationFieldDefinitionServiceTest {
         when(applicationFieldDefinitionRepository.existsByNameAndApplication(anyString(), eq(application))).thenReturn(true);
 
         assertThrows(ConflictException.class, () -> {
-            CreateDefinition createDefinition = new CreateDefinition("name", true, FieldType.TEXT);
+            CreateDefinition createDefinition = new CreateDefinition("name", "",true, FieldType.TEXT);
             applicationFieldDefinitionService.addDefinition(application.getUser(), "", createDefinition);
         });
     }

@@ -42,12 +42,12 @@ class BlogAggregatorTest {
 
         when(blogService.findById(anyString())).thenReturn(Optional.of(blog));
 
-        ApplicationFieldDefinition ageDefinition = new ApplicationFieldDefinition("age", true, FieldType.INTEGER, null);
-        ApplicationFieldDefinition nameDefinition = new ApplicationFieldDefinition("name", true, FieldType.TEXT, null);
+        ApplicationFieldDefinition ageDefinition = new ApplicationFieldDefinition("age", "",true, FieldType.INTEGER, null);
+        ApplicationFieldDefinition nameDefinition = new ApplicationFieldDefinition("name","", true, FieldType.TEXT, null);
 
         when(representationService.findByBlog(eq(blog))).thenReturn(List.of(
-                new ApplicationBlogFieldRepresentation("0", "19", ageDefinition, blog),
-                new ApplicationBlogFieldRepresentation("", "Janek", nameDefinition, null)
+                new ApplicationBlogFieldRepresentation( "19", ageDefinition, blog),
+                new ApplicationBlogFieldRepresentation("Janek", nameDefinition, null)
         ));
 
         AggregatedBlog aggregatedBlog = blogAggregator.aggregateBlogById(blog.getId());
