@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ApplicationBlogFieldRepresentationRepository extends JpaRepository<ApplicationBlogFieldRepresentation, String> {
     List<ApplicationBlogFieldRepresentation> findAllByBlog(Blog blog);
+    void deleteAllByBlog(Blog blog);
 }

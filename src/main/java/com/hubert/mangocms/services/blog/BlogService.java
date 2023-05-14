@@ -6,6 +6,7 @@ import com.hubert.mangocms.domain.models.app.Application;
 import com.hubert.mangocms.domain.models.blog.Blog;
 import com.hubert.mangocms.domain.models.blog.fields.ApplicationBlogFieldRepresentation;
 import com.hubert.mangocms.domain.requests.blog.CreateBlog;
+import com.hubert.mangocms.domain.requests.blog.UpdateBlog;
 import com.hubert.mangocms.repositories.blog.BlogRepository;
 import com.hubert.mangocms.services.application.ApplicationBlogFieldRepresentationService;
 import com.hubert.mangocms.services.application.ApplicationService;
@@ -28,12 +29,9 @@ public class BlogService {
         return blogRepository.findById(id);
     }
 
-    @Transactional(rollbackOn = Exception.class)
-    public Blog createBlog(String applicationId, CreateBlog createBlog) throws
-            InvalidRequestException {
-        Application application = applicationService
-                .findById(applicationId)
-                .orElseThrow(() -> new InvalidRequestException("Invalid application id"));
+    @Transactional(rollbackOn = Throwable.class)
+    public Blog createBlog(String applicationId, CreateBlog createBlog) throws InvalidRequestException {
+        Application application = applicationService.findApplication(applicationId);
         Blog blog = new Blog(application);
         List<ApplicationBlogFieldRepresentation> fields = fieldRepresentationMapper.fromCredentials(blog,
                 createBlog.fields()
@@ -41,6 +39,16 @@ public class BlogService {
 
         save(blog);
         applicationBlogFieldRepresentationService.saveAll(fields);
+
+        return blog;
+    }
+
+    public Blog update(String applicationId, String blogId, UpdateBlog updateBlog) throws InvalidRequestException {
+        Application application = applicationService.findApplication(applicationId);
+        Blog blog = findById(blogId).orElseThrow(() -> new InvalidRequestException("Invalid blog id"));
+        List<ApplicationBlogFieldRepresentation> representations = fieldRepresentationMapper.fromCredentials(blog, updateBlog.fields());
+
+        applicationBlogFieldRepresentationService.replaceWith(blog, representations);
 
         return blog;
     }

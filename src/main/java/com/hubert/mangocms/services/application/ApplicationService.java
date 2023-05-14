@@ -1,5 +1,6 @@
 package com.hubert.mangocms.services.application;
 
+import com.hubert.mangocms.domain.exceptions.internal.InvalidRequestException;
 import com.hubert.mangocms.domain.models.app.Application;
 import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.requests.application.CreateApplication;
@@ -29,6 +30,12 @@ final public class ApplicationService {
 
     public Optional<Application> findById(String applicationId) {
         return applicationRepository.findById(applicationId);
+    }
+
+    public Application findApplication(String applicationId) throws InvalidRequestException {
+        return applicationRepository
+                .findById(applicationId)
+                .orElseThrow(() -> new InvalidRequestException("Invalid application id"));
     }
 
     public Optional<Application> findByIdAndUser(String id, User user) {
