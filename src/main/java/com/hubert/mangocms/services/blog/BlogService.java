@@ -44,7 +44,8 @@ public class BlogService {
     }
 
     public Blog update(String applicationId, String blogId, UpdateBlog updateBlog) throws InvalidRequestException {
-        Application application = applicationService.findApplication(applicationId);
+        applicationService.findApplication(applicationId);
+
         Blog blog = findById(blogId).orElseThrow(() -> new InvalidRequestException("Invalid blog id"));
         List<ApplicationBlogFieldRepresentation> representations = fieldRepresentationMapper.fromCredentials(blog, updateBlog.fields());
 
