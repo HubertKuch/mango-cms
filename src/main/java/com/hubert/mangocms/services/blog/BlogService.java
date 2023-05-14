@@ -55,9 +55,11 @@ public class BlogService {
         return blog;
     }
 
-//    public void delete(String applicationId, String blogId) throws InvalidRequestException {
-//        applicationService.findApplicationOfUser(applicationId);
-//    }
+    @Transactional(rollbackOn = Throwable.class)
+    public void delete(User owner, String applicationId, String blogId) throws InvalidRequestException {
+        applicationService.findApplicationOfUser(owner, applicationId);
+        blogRepository.deleteById(blogId);
+    }
 
     public Blog save(Blog blog) {
         return blogRepository.save(blog);

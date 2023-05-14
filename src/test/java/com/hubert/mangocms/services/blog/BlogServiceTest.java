@@ -113,4 +113,16 @@ class BlogServiceTest {
                 () -> blogService.update(user, "", "", new UpdateBlog(List.of()))
         );
     }
+
+    @Test
+    void givenValidId_thenDelete_shouldDoesntThrowAnything() {
+        User user = new User("", "");
+        Application application = new Application("", user);
+        Blog blog = new Blog(application);
+
+        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(application));
+        when(blogRepository.findById(anyString())).thenReturn(Optional.of(blog));
+
+        assertDoesNotThrow(() -> blogService.delete(user, application.getId(), blog.getId()));
+    }
 }
