@@ -30,6 +30,10 @@ public class BlogService {
         return blogRepository.findById(id);
     }
 
+    public List<Blog> findByApplicationId(String applicationId) {
+        return blogRepository.findALlByApplication_Id(applicationId);
+    }
+
     @Transactional(rollbackOn = Throwable.class)
     public Blog createBlog(User user, String applicationId, CreateBlog createBlog) throws InvalidRequestException {
         Application application = applicationService.findApplicationOfUser(user, applicationId);

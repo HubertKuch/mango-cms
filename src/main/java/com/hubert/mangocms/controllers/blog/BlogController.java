@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,6 +30,13 @@ public class BlogController {
         Blog blog = blogService.findById(blogId).orElseThrow(() -> new NotFoundException("Invalid blog id"));
 
         return blogAggregator.aggregatedBlog(blog);
+    }
+
+    @GetMapping("/{applicationId}/blogs/")
+    public List<AggregatedBlog> findBlogs(@PathVariable String applicationId) {
+        List<Blog> blogs = blogService.findByApplicationId(applicationId);
+
+        return blogAggregator.aggregatedBlogs(blogs);
     }
 
     @Restricted

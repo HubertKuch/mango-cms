@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -26,12 +27,17 @@ public class BlogAggregator {
     }
 
     public AggregatedBlog aggregatedBlog(Blog blog) {
-        List<AggregatedField> aggregatedFields = representationService.findByBlog(blog)
-                                                                      .stream()
-                                                                      .map(fieldAggregator::aggregateField)
-                                                                      .toList();
+        List<AggregatedField> aggregatedFields = representationService
+                .findByBlog(blog)
+                .stream()
+                .map(fieldAggregator::aggregateField)
+                .toList();
 
         return new AggregatedBlog(blog, aggregatedFields);
+    }
+
+    public List<AggregatedBlog> aggregatedBlogs(List<Blog> blogs) {
+        return blogs.stream().map(this::aggregatedBlog).collect(Collectors.toList());
     }
 
 }
