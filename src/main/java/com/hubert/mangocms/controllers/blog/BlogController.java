@@ -3,6 +3,7 @@ package com.hubert.mangocms.controllers.blog;
 import com.hubert.mangocms.domain.aggregators.BlogAggregator;
 import com.hubert.mangocms.domain.annotations.Restricted;
 import com.hubert.mangocms.domain.exceptions.internal.InvalidRequestException;
+import com.hubert.mangocms.domain.exceptions.internal.NotFoundException;
 import com.hubert.mangocms.domain.models.blog.Blog;
 import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.requests.blog.CreateBlog;
@@ -14,12 +15,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
 public class BlogController {
     private final BlogService blogService;
     private final BlogAggregator blogAggregator;
+
+    @GetMapping("/{applicationId}/blogs/{blogId}/")
+    public AggregatedBlog findById(@PathVariable String applicationId, @PathVariable String blogId) throws
+            NotFoundException {
+        Blog blog = blogService.findById(blogId).orElseThrow(() -> new NotFoundException("Invalid blog id"));
+
+        return blogAggregator.aggregatedBlog(blog);
+    }
 
     @Restricted
     @ResponseStatus(HttpStatus.CREATED)
