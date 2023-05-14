@@ -1,0 +1,36 @@
+package com.hubert.mangocms.domain.models.blog;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hubert.mangocms.domain.models.app.Application;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import java.sql.Timestamp;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+@Entity(name = "blogs")
+@AllArgsConstructor
+public class Blog {
+    @Id
+    private String id = UUID.randomUUID().toString();
+    @ManyToOne
+    @JoinColumn(name = "application_id")
+    @JsonIgnore
+    private Application application;
+    private Timestamp createAt;
+    private Timestamp updatedAt;
+
+    public Blog(Application application) {
+        this.application = application;
+        this.createAt = new Timestamp(System.currentTimeMillis());
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+}

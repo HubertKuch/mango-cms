@@ -31,3 +31,25 @@ CREATE TABLE application_keys
     UNIQUE INDEX `IDX_unique` (`unique` ASC),
     UNIQUE INDEX `IDX_unique` (`api_key` ASC)
 );
+
+CREATE TABLE blogs
+(
+    id             VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT UUID(),
+    application_id VARCHAR(36) REFERENCES applications (id)
+);
+
+CREATE TABLE application_field_definitions
+(
+    id      VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT UUID(),
+    name    TEXT        NOT NULL,
+    type    TEXT        NOT NULL,
+    blog_id VARCHAR(36) REFERENCES blogs (id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE blog_field_representation
+(
+    id                  VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT UUID(),
+    value               TEXT        NOT NULL,
+    field_definition_id VARCHAR(36) REFERENCES blog_field_definitions (id)
+)
