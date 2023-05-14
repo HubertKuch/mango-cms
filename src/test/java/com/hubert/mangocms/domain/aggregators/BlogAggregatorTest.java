@@ -50,7 +50,7 @@ class BlogAggregatorTest {
                 new ApplicationBlogFieldRepresentation("Janek", nameDefinition, null)
         ));
 
-        AggregatedBlog aggregatedBlog = blogAggregator.aggregateBlogById(blog.getId());
+        AggregatedBlog aggregatedBlog = blogAggregator.aggregatedBlog(blog.getId());
 
         assertAll(
                 () -> assertNotNull(aggregatedBlog),

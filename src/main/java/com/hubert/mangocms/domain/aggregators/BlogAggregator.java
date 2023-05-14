@@ -19,8 +19,13 @@ public class BlogAggregator {
     private final FieldAggregator fieldAggregator;
     private final ApplicationBlogFieldRepresentationService representationService;
 
-    public AggregatedBlog aggregateBlogById(String id) throws InvalidRequestException {
+    public AggregatedBlog aggregatedBlog(String id) throws InvalidRequestException {
         Blog blog = blogService.findById(id).orElseThrow(() -> new InvalidRequestException("Invalid blog id"));
+
+        return aggregatedBlog(blog);
+    }
+
+    public AggregatedBlog aggregatedBlog(Blog blog) {
         List<AggregatedField> aggregatedFields = representationService.findByBlog(blog)
                                                                       .stream()
                                                                       .map(fieldAggregator::aggregateField)

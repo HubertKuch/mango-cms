@@ -5,7 +5,7 @@ import com.hubert.mangocms.domain.mappers.FieldRepresentationMapper;
 import com.hubert.mangocms.domain.models.app.Application;
 import com.hubert.mangocms.domain.models.blog.Blog;
 import com.hubert.mangocms.domain.models.blog.fields.ApplicationBlogFieldRepresentation;
-import com.hubert.mangocms.domain.requests.blog.CreateBlogCredentials;
+import com.hubert.mangocms.domain.requests.blog.CreateBlog;
 import com.hubert.mangocms.repositories.blog.BlogRepository;
 import com.hubert.mangocms.services.application.ApplicationBlogFieldRepresentationService;
 import com.hubert.mangocms.services.application.ApplicationService;
@@ -29,14 +29,14 @@ public class BlogService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public Blog createBlog(String applicationId, CreateBlogCredentials createBlogCredentials) throws
+    public Blog createBlog(String applicationId, CreateBlog createBlog) throws
             InvalidRequestException {
         Application application = applicationService
                 .findById(applicationId)
                 .orElseThrow(() -> new InvalidRequestException("Invalid application id"));
         Blog blog = new Blog(application);
         List<ApplicationBlogFieldRepresentation> fields = fieldRepresentationMapper.fromCredentials(blog,
-                createBlogCredentials.fields()
+                createBlog.fields()
         );
 
         save(blog);

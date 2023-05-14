@@ -6,7 +6,7 @@ import com.hubert.mangocms.domain.models.app.Application;
 import com.hubert.mangocms.domain.models.app.ApplicationFieldDefinition;
 import com.hubert.mangocms.domain.models.blog.Blog;
 import com.hubert.mangocms.domain.models.blog.fields.FieldType;
-import com.hubert.mangocms.domain.requests.blog.CreateBlogCredentials;
+import com.hubert.mangocms.domain.requests.blog.CreateBlog;
 import com.hubert.mangocms.domain.requests.blog.FieldRepresentationCredentials;
 import com.hubert.mangocms.repositories.application.ApplicationBlogFieldRepresentationRepository;
 import com.hubert.mangocms.repositories.application.ApplicationRepository;
@@ -56,7 +56,7 @@ class BlogServiceTest {
                 new FieldRepresentationCredentials("2", "test"),
                 new FieldRepresentationCredentials("3", "test")
         );
-        CreateBlogCredentials blogCredentials = new CreateBlogCredentials(fields);
+        CreateBlog blogCredentials = new CreateBlog(fields);
 
         when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application()));
         when(applicationFieldDefinitionService.findByIdAndApplication(any(), anyString())).thenReturn(Optional.of(new ApplicationFieldDefinition(
