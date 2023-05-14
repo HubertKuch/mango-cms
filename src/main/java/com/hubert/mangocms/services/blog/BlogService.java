@@ -5,6 +5,7 @@ import com.hubert.mangocms.domain.mappers.FieldRepresentationMapper;
 import com.hubert.mangocms.domain.models.app.Application;
 import com.hubert.mangocms.domain.models.blog.Blog;
 import com.hubert.mangocms.domain.models.blog.fields.ApplicationBlogFieldRepresentation;
+import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.requests.blog.CreateBlog;
 import com.hubert.mangocms.domain.requests.blog.UpdateBlog;
 import com.hubert.mangocms.repositories.blog.BlogRepository;
@@ -30,8 +31,8 @@ public class BlogService {
     }
 
     @Transactional(rollbackOn = Throwable.class)
-    public Blog createBlog(String applicationId, CreateBlog createBlog) throws InvalidRequestException {
-        Application application = applicationService.findApplication(applicationId);
+    public Blog createBlog(User user, String applicationId, CreateBlog createBlog) throws InvalidRequestException {
+        Application application = applicationService.findApplicationOfUser(user, applicationId);
         Blog blog = new Blog(application);
         List<ApplicationBlogFieldRepresentation> fields = fieldRepresentationMapper.fromCredentials(blog,
                 createBlog.fields()
@@ -43,8 +44,8 @@ public class BlogService {
         return blog;
     }
 
-    public Blog update(String applicationId, String blogId, UpdateBlog updateBlog) throws InvalidRequestException {
-        applicationService.findApplication(applicationId);
+    public Blog update(User user, String applicationId, String blogId, UpdateBlog updateBlog) throws InvalidRequestException {
+        applicationService.findApplicationOfUser(user, applicationId);
 
         Blog blog = findById(blogId).orElseThrow(() -> new InvalidRequestException("Invalid blog id"));
         List<ApplicationBlogFieldRepresentation> representations = fieldRepresentationMapper.fromCredentials(blog, updateBlog.fields());
@@ -53,6 +54,10 @@ public class BlogService {
 
         return blog;
     }
+
+//    public void delete(String applicationId, String blogId) throws InvalidRequestException {
+//        applicationService.findApplicationOfUser(applicationId);
+//    }
 
     public Blog save(Blog blog) {
         return blogRepository.save(blog);

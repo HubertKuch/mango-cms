@@ -32,10 +32,16 @@ final public class ApplicationService {
         return applicationRepository.findById(applicationId);
     }
 
-    public Application findApplication(String applicationId) throws InvalidRequestException {
-        return applicationRepository
+    public Application findApplicationOfUser(User user, String applicationId) throws InvalidRequestException {
+        Application application = applicationRepository
                 .findById(applicationId)
                 .orElseThrow(() -> new InvalidRequestException("Invalid application id"));
+
+        if (!user.getId().equals(application.getUser().getId())) {
+            throw new InvalidRequestException("Invalid application id");
+        }
+
+        return application;
     }
 
     public Optional<Application> findByIdAndUser(String id, User user) {

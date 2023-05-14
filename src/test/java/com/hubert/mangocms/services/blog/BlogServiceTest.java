@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -58,45 +59,35 @@ class BlogServiceTest {
 
     @Test
     void givenValidBlogCredentials_thenSave_shouldReturnValidBlog() throws InvalidRequestException {
+        User user = new User("", "");
         List<FieldRepresentationCredentials> fields = List.of(new FieldRepresentationCredentials("1", "test"),
                 new FieldRepresentationCredentials("2", "test"),
                 new FieldRepresentationCredentials("3", "test")
         );
         CreateBlog blogCredentials = new CreateBlog(fields);
 
-        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application()));
+        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application("", user)));
         when(applicationFieldDefinitionService.findByIdAndApplication(any(),
                 anyString()
-        )).thenReturn(Optional.of(new ApplicationFieldDefinition(
-                "name",
-                "",
-                true,
-                FieldType.TEXT,
-                new Application()
-        )));
+        )).thenReturn(Optional.of(new ApplicationFieldDefinition("name", "", true, FieldType.TEXT, new Application())));
 
-        Blog blog = blogService.createBlog("", blogCredentials);
+        Blog blog = blogService.createBlog(user, "", blogCredentials);
 
         assertAll(() -> assertNotNull(blog), () -> assertNotNull(blog.getApplication()));
     }
 
     @Test
     void givenValidUpdateBlogData_thenSave_shouldReturnValidBLog() throws InvalidRequestException {
+        User user = new User("", "");
         List<FieldRepresentationCredentials> newFields = List.of(new FieldRepresentationCredentials("1", "new field"));
 
-        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application()));
+        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application("", user)));
         when(applicationFieldDefinitionService.findByIdAndApplication(any(),
                 anyString()
-        )).thenReturn(Optional.of(new ApplicationFieldDefinition(
-                "name",
-                "",
-                true,
-                FieldType.TEXT,
-                new Application()
-        )));
+        )).thenReturn(Optional.of(new ApplicationFieldDefinition("name", "", true, FieldType.TEXT, new Application())));
         when(blogRepository.findById(anyString())).thenReturn(Optional.of(new Blog(new Application())));
 
-        Blog blog = blogService.update("", "", new UpdateBlog(newFields));
+        Blog blog = blogService.update(user, "", "", new UpdateBlog(newFields));
 
         assertAll(() -> assertNotNull(blog));
     }
@@ -105,14 +96,21 @@ class BlogServiceTest {
     void givenDoesntExistingApplication_thenCall_shouldThrowException() {
         when(applicationRepository.findById(anyString())).thenReturn(Optional.empty());
 
-        assertThrows(InvalidRequestException.class, () -> blogService.update("", "", new UpdateBlog(List.of())));
+        assertThrows(
+                InvalidRequestException.class,
+                () -> blogService.update(new User(), "", "", new UpdateBlog(List.of()))
+        );
     }
 
     @Test
     void givenDoesntExistingBlog_thenCall_shouldThrowException() {
-        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application()));
+        User user = new User("", "");
+        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application("", user)));
         when(blogRepository.findById(anyString())).thenReturn(Optional.empty());
 
-        assertThrows(InvalidRequestException.class, () -> blogService.update("", "", new UpdateBlog(List.of())));
+        assertThrows(
+                InvalidRequestException.class,
+                () -> blogService.update(user, "", "", new UpdateBlog(List.of()))
+        );
     }
 }
