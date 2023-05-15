@@ -1,10 +1,13 @@
 package com.hubert.mangocms.domain.models.app;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
 import java.util.UUID;
 
