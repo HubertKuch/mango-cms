@@ -14,7 +14,7 @@ import java.nio.file.Files;
 public class AssetsStorageService {
     private final StorageConfiguration storageConfiguration;
 
-    public void upload(UploadAsset asset) throws IOException {
+    public File upload(UploadAsset asset) throws IOException {
         String path = getPath() + "/" + buildFileName(
                 asset.file().getOriginalFilename(),
                 FilenameUtils.getExtension(asset.file().getOriginalFilename())
@@ -24,6 +24,8 @@ public class AssetsStorageService {
         byte[] buffer = asset.file().getBytes();
 
         Files.write(target.toPath(), buffer);
+
+        return target;
     }
 
     private String buildFileName(String originalName, String extension) {

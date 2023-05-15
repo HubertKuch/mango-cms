@@ -1,17 +1,24 @@
 package com.hubert.mangocms.domain.models.asset;
 
 import com.hubert.mangocms.domain.models.app.Application;
+import com.hubert.mangocms.domain.models.user.User;
+import com.hubert.mangocms.domain.requests.asset.UploadAsset;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.convert.DataSizeUnit;
+import org.springframework.http.MediaType;
 import org.springframework.util.MimeType;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.unit.DataSize;
 import org.springframework.util.unit.DataUnit;
 
+import javax.print.attribute.standard.Media;
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "asssets")
 public class Asset {
@@ -20,7 +27,7 @@ public class Asset {
     private String name;
     private String mime;
     @Transient
-    private MimeType mimeType;
+    private MediaType mediaType;
     @Transient
     @DataSizeUnit(DataUnit.BYTES)
     private DataSize size;
@@ -30,9 +37,23 @@ public class Asset {
     @JoinColumn(name = "application_id")
     private Application application;
 
+    public Asset(
+            String name,
+            MediaType mediaType,
+            DataSize size,
+            Application application
+    ) {
+        this.name = name;
+        this.mime = mediaType.getType();
+        this.mediaType = mediaType;
+        this.size = size;
+        this.application = application;
+    }
+
     @PostPersist
     private void postPersist() {
         this.size = DataSize.of(sizeInBytes, sizeUnit);
-        this.mimeType = MimeType.valueOf(mime);
+        this.mediaType = MediaType.valueOf(mime);
     }
+
 }
