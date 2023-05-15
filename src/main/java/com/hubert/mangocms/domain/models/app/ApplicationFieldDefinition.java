@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.app;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hubert.mangocms.domain.models.blog.fields.FieldType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class ApplicationFieldDefinition {
     private FieldType type;
     private String defaultValue;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "application_id")
     private Application application;
 
