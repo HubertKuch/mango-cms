@@ -1,5 +1,6 @@
 package com.hubert.mangocms.services.blog;
 
+import com.hubert.mangocms.domain.exceptions.internal.ConflictException;
 import com.hubert.mangocms.domain.exceptions.internal.InvalidRequestException;
 import com.hubert.mangocms.domain.mappers.FieldRepresentationMapper;
 import com.hubert.mangocms.domain.models.app.Application;
@@ -52,12 +53,13 @@ class BlogServiceTest {
         blogService = new BlogService(blogRepository,
                 applicationBlogFieldRepresentationService,
                 applicationService,
-                fieldRepresentationMapper
+                fieldRepresentationMapper,
+                null
         );
     }
 
     @Test
-    void givenValidBlogCredentials_thenSave_shouldReturnValidBlog() throws InvalidRequestException {
+    void givenValidBlogCredentials_thenSave_shouldReturnValidBlog() throws InvalidRequestException, ConflictException {
         User user = new User("", "");
         List<FieldRepresentationCredentials> fields = List.of(new FieldRepresentationCredentials("1", "test"),
                 new FieldRepresentationCredentials("2", "test"),

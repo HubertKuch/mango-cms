@@ -67,6 +67,10 @@ final public class ApplicationFieldDefinitionService {
         return fieldDefinition;
     }
 
+    public List<ApplicationFieldDefinition> findRequiredByApplication(Application application) {
+        return definitionRepository.findAllByIsRequired(true);
+    }
+
     public List<ApplicationFieldDefinition> findDefinitionsByApplication(User user, String applicationId) throws
             AuthenticationException {
         Application application = applicationService.findByIdAndUser(applicationId, user)

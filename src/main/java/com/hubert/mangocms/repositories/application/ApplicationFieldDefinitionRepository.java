@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ApplicationFieldDefinitionRepository extends JpaRepository<ApplicationFieldDefinition, String> {
-    List<ApplicationFieldDefinition> findAllByApplication(Application application);
+    List<ApplicationFieldDefinition> findAllByIsRequired(boolean required);
     boolean existsByNameAndApplication(String name, Application application);
 
     List<ApplicationFieldDefinition> findAllByApplicationAndApplication_User(

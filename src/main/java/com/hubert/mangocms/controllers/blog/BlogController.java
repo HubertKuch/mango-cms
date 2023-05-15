@@ -2,6 +2,7 @@ package com.hubert.mangocms.controllers.blog;
 
 import com.hubert.mangocms.domain.aggregators.BlogAggregator;
 import com.hubert.mangocms.domain.annotations.Restricted;
+import com.hubert.mangocms.domain.exceptions.internal.ConflictException;
 import com.hubert.mangocms.domain.exceptions.internal.InvalidRequestException;
 import com.hubert.mangocms.domain.exceptions.internal.NotFoundException;
 import com.hubert.mangocms.domain.models.blog.Blog;
@@ -44,7 +45,7 @@ public class BlogController {
     @PostMapping("/")
     public AggregatedBlog createBlog(
             @RequestAttribute User user, @RequestBody CreateBlog createBlog, @PathVariable String applicationId
-    ) throws InvalidRequestException {
+    ) throws InvalidRequestException, ConflictException {
         Blog blog = blogService.createBlog(user, applicationId, createBlog);
 
         return blogAggregator.aggregatedBlog(blog);
