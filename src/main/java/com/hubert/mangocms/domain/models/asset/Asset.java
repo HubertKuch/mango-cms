@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.asset;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hubert.mangocms.domain.models.app.Application;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,8 +23,10 @@ public class Asset {
     private String name;
     private String mime;
     @Transient
+    @JsonIgnore
     private MediaType mediaType;
     @Transient
+    @JsonIgnore
     @DataSizeUnit(DataUnit.BYTES)
     private DataSize size;
     private Long sizeInBytes;
@@ -35,9 +38,10 @@ public class Asset {
             String name, MediaType mediaType, DataSize size, Application application
     ) {
         this.name = name;
-        this.mime = mediaType.getType();
+        this.mime = mediaType.toString();
         this.mediaType = mediaType;
         this.size = size;
+        this.sizeInBytes = size.toBytes();
         this.application = application;
     }
 

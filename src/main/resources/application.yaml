@@ -25,7 +25,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+  web:
+    resources:
+      static-locations: file:${storage.path}/${storage.assets-storage-configuration.path}
+      add-mappings: true
+  mvc:
+    static-path-pattern: /assets/**
 storage:
-  path: /
-  assets:
-    path: ""
+  path: /var/mangocms
+  assets-storage-configuration:
+    path: /

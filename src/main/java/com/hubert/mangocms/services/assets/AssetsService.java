@@ -10,12 +10,12 @@ import com.hubert.mangocms.domain.requests.asset.UploadAsset;
 import com.hubert.mangocms.repositories.assets.AssetsRepository;
 import com.hubert.mangocms.services.application.ApplicationService;
 import com.hubert.mangocms.services.storage.AssetsStorageService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MimeType;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +33,7 @@ public class AssetsService {
     private final ApplicationService applicationService;
     private final AssetsStorageService assetsStorageService;
 
-    @Transactional(rollbackFor = Throwable.class)
+    @Transactional(rollbackOn = Throwable.class)
     public Asset upload(User loggedInUser, String applicationId, UploadAsset uploadAsset) throws AssetUploadException {
         MultipartFile multipartFile = uploadAsset.file();
 
