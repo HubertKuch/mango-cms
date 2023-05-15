@@ -11,6 +11,9 @@ auth:
     is-secure: false
     name: token
 spring:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:

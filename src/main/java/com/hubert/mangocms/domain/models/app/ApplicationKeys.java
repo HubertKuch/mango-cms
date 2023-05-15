@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.app;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Entity(name = "application_keys")
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class ApplicationKeys {
     @Id
     @Column(name = "application_id", updatable = false, nullable = false)
