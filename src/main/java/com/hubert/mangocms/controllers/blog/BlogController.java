@@ -19,12 +19,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/applications/{applicationId}/blogs")
 public class BlogController {
     private final BlogService blogService;
     private final BlogAggregator blogAggregator;
 
-    @GetMapping("/{applicationId}/blogs/{blogId}/")
+    @GetMapping("/{blogId}/")
     public AggregatedBlog findById(@PathVariable String applicationId, @PathVariable String blogId) throws
             NotFoundException {
         Blog blog = blogService.findById(blogId).orElseThrow(() -> new NotFoundException("Invalid blog id"));
@@ -32,7 +32,7 @@ public class BlogController {
         return blogAggregator.aggregatedBlog(blog);
     }
 
-    @GetMapping("/{applicationId}/blogs/")
+    @GetMapping("/blogs/")
     public List<AggregatedBlog> findBlogs(@PathVariable String applicationId) {
         List<Blog> blogs = blogService.findByApplicationId(applicationId);
 
@@ -41,7 +41,7 @@ public class BlogController {
 
     @Restricted
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{applicationId}/blogs/")
+    @PostMapping("/blogs/")
     public AggregatedBlog createBlog(
             @RequestAttribute User user, @RequestBody CreateBlog createBlog, @PathVariable String applicationId
     ) throws InvalidRequestException {
@@ -51,7 +51,7 @@ public class BlogController {
     }
 
     @Restricted
-    @PutMapping("/{applicationId}/blogs/{blogId}/")
+    @PutMapping("/blogs/{blogId}/")
     public AggregatedBlog update(
             @PathVariable String applicationId,
             @PathVariable String blogId,
@@ -66,7 +66,7 @@ public class BlogController {
 
     @Restricted
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{applicationId}/blogs/{blogId}/")
+    @DeleteMapping("/blogs/{blogId}/")
     public BaseResponse delete(
             @RequestAttribute User user, @PathVariable String applicationId, @PathVariable String blogId
     ) throws InvalidRequestException {

@@ -18,3 +18,11 @@ spring:
     url: jdbc:mysql://172.17.0.2:3306/mango_cms?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=true&connectionTimeZone=Europe/Warsaw&serverTimezone=UTC&&useLegacyDatetimeCode=false
     username: user
     password: user
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+storage:
+  path: /
+  assets:
+    path: ""

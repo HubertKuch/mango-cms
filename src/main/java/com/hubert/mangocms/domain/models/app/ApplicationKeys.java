@@ -10,7 +10,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.UUID;
 
 @Data
-@Entity
+@Entity(name = "application_keys")
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApplicationKeys {

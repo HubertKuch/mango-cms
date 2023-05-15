@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequestInterceptor;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.WebRequestHandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
 
@@ -39,11 +40,11 @@ public class RestrictedAnnotationInterceptor extends WebRequestHandlerIntercepto
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws
             Exception {
-        if (handler instanceof HandlerMethod && !(((HandlerMethod) handler).hasMethodAnnotation(Restricted.class))) {
+        if (handler instanceof HandlerMethod handlerMethod && !(handlerMethod.hasMethodAnnotation(Restricted.class))) {
             return true;
         }
 
-        if (!(handler instanceof HandlerMethod handlerMethod)) {
+        if (!(handler instanceof HandlerMethod)) {
             return true;
         }
 
@@ -69,5 +70,13 @@ public class RestrictedAnnotationInterceptor extends WebRequestHandlerIntercepto
     @Override
     public void afterCompletion(
             HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex
-    ) throws Exception {}
+    ) throws Exception {
+    }
+
+    @Override
+    public void postHandle(
+            HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView
+    ) throws Exception {
+        super.postHandle(request, response, handler, modelAndView);
+    }
 }

@@ -1,10 +1,7 @@
 package com.hubert.mangocms.domain.models.app;
 
 import com.hubert.mangocms.domain.models.blog.fields.FieldType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -21,6 +18,7 @@ public class ApplicationFieldDefinition {
     private String id = UUID.randomUUID().toString();
     private String name;
     private boolean isRequired;
+    @Enumerated(EnumType.STRING)
     private FieldType type;
     private String defaultValue;
     @ManyToOne
