@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.app;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,9 @@ import java.util.UUID;
 public class ApplicationKeys {
     @Id
     private String id;
+    @Column(unique = true)
     private String unique;
+    @Column(unique = true)
     private String apiKey;
 
     public static ApplicationKeys from(Application application) {
