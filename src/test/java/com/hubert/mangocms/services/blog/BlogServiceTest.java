@@ -54,7 +54,7 @@ class BlogServiceTest {
                 applicationBlogFieldRepresentationService,
                 applicationService,
                 fieldRepresentationMapper,
-                null
+                applicationFieldDefinitionService
         );
     }
 

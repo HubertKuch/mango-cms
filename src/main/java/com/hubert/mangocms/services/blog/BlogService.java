@@ -29,7 +29,6 @@ public class BlogService {
     private final ApplicationBlogFieldRepresentationService applicationBlogFieldRepresentationService;
     private final ApplicationService applicationService;
     private final FieldRepresentationMapper fieldRepresentationMapper;
-    private final ApplicationFieldDefinitionService applicationFieldDefinitionService;
 
     public Optional<Blog> findById(String id) {
         return blogRepository.findById(id);
@@ -50,7 +49,7 @@ public class BlogService {
                 createBlog.fields()
         );
         List<ApplicationFieldDefinition> fieldDefinitions = fields.stream().map(ApplicationBlogFieldRepresentation::getDefinition).toList();
-        List<ApplicationFieldDefinition> requiredFields = applicationFieldDefinitionService.findRequiredByApplication(application);
+        List<ApplicationFieldDefinition> requiredFields = fieldRepresentationMapper.getApplicationFieldDefinitionService().findRequiredByApplication(application);
 
         boolean allRequiredFieldFilled = new HashSet<>(fieldDefinitions).containsAll(requiredFields);
 

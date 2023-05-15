@@ -5,12 +5,14 @@ import com.hubert.mangocms.domain.models.blog.Blog;
 import com.hubert.mangocms.domain.models.blog.fields.ApplicationBlogFieldRepresentation;
 import com.hubert.mangocms.domain.requests.blog.FieldRepresentationCredentials;
 import com.hubert.mangocms.services.application.ApplicationFieldDefinitionService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
 @Component
 @RequiredArgsConstructor
 public class FieldRepresentationMapper {
