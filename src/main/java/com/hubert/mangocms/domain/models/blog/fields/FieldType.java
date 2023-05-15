@@ -4,5 +4,6 @@ public enum FieldType {
     TEXT,
     INTEGER,
     REAL,
-    BOOLEAN
+    BOOLEAN,
+    MEDIA
 }
