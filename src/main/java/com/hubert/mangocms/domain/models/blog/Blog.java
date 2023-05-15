@@ -25,12 +25,12 @@ public class Blog {
     @JoinColumn(name = "application_id")
     @JsonIgnore
     private Application application;
-    private Timestamp createAt;
+    private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public Blog(Application application) {
         this.application = application;
-        this.createAt = new Timestamp(System.currentTimeMillis());
+        this.createdAt = new Timestamp(System.currentTimeMillis());
         this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
 }

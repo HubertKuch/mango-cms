@@ -32,7 +32,7 @@ public class BlogController {
         return blogAggregator.aggregatedBlog(blog);
     }
 
-    @GetMapping("/blogs/")
+    @GetMapping("/")
     public List<AggregatedBlog> findBlogs(@PathVariable String applicationId) {
         List<Blog> blogs = blogService.findByApplicationId(applicationId);
 
@@ -41,7 +41,7 @@ public class BlogController {
 
     @Restricted
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/blogs/")
+    @PostMapping("/")
     public AggregatedBlog createBlog(
             @RequestAttribute User user, @RequestBody CreateBlog createBlog, @PathVariable String applicationId
     ) throws InvalidRequestException {
@@ -51,7 +51,7 @@ public class BlogController {
     }
 
     @Restricted
-    @PutMapping("/blogs/{blogId}/")
+    @PutMapping("/{blogId}/")
     public AggregatedBlog update(
             @PathVariable String applicationId,
             @PathVariable String blogId,
@@ -66,7 +66,7 @@ public class BlogController {
 
     @Restricted
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/blogs/{blogId}/")
+    @DeleteMapping("/{blogId}/")
     public BaseResponse delete(
             @RequestAttribute User user, @PathVariable String applicationId, @PathVariable String blogId
     ) throws InvalidRequestException {

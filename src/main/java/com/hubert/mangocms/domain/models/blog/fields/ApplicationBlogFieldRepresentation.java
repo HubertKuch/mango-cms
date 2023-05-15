@@ -20,7 +20,7 @@ public class ApplicationBlogFieldRepresentation {
     private String id = UUID.randomUUID().toString();
     private String value;
     @ManyToOne
-    @JoinColumn(name = "field_definition_id")
+    @JoinColumn(name = "definition_id")
     private ApplicationFieldDefinition definition;
     @ManyToOne
     @JoinColumn(name = "blog_id")
@@ -29,5 +29,6 @@ public class ApplicationBlogFieldRepresentation {
     public ApplicationBlogFieldRepresentation(String value, ApplicationFieldDefinition definition, Blog blog) {
         this.value = value;
         this.definition = definition;
+        this.blog = blog;
     }
 }
