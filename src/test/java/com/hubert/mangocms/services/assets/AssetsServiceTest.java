@@ -86,4 +86,24 @@ class AssetsServiceTest {
                 () -> assertEquals(MediaType.IMAGE_PNG, given.getMediaType())
         );
     }
+
+    @Test
+    void givenEmptyFile_thenValidate_shouldThrowException() {
+        User user = new User();
+        Application application = new Application("", user);
+        final String FILE_NAME = "test.png";
+        MockMultipartFile mockMultipartFile = new MockMultipartFile(
+                "test",
+                FILE_NAME,
+                MediaType.IMAGE_PNG_VALUE,
+                new byte[] {}
+        );
+        UploadAsset uploadAsset = new UploadAsset(mockMultipartFile);
+
+        String applicationId = application.getId();
+
+        when(applicationRepository.findByIdAndUser(eq(applicationId), eq(user))).thenReturn(Optional.of(application));
+
+        assertThrows(AssetUploadException.class, () -> assetsService.upload(user, applicationId, uploadAsset));
+    }
 }
