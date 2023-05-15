@@ -12,7 +12,6 @@ import com.hubert.mangocms.domain.requests.blog.CreateBlog;
 import com.hubert.mangocms.domain.requests.blog.UpdateBlog;
 import com.hubert.mangocms.repositories.blog.BlogRepository;
 import com.hubert.mangocms.services.application.ApplicationBlogFieldRepresentationService;
-import com.hubert.mangocms.services.application.ApplicationFieldDefinitionService;
 import com.hubert.mangocms.services.application.ApplicationService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -53,8 +53,7 @@ class BlogServiceTest {
         blogService = new BlogService(blogRepository,
                 applicationBlogFieldRepresentationService,
                 applicationService,
-                fieldRepresentationMapper,
-                applicationFieldDefinitionService
+                fieldRepresentationMapper
         );
     }
 

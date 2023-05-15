@@ -33,4 +33,8 @@ public class Blog {
         this.createdAt = new Timestamp(System.currentTimeMillis());
         this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
+
+    public void addField(ApplicationBlogFieldRepresentation representation) {
+        fields.add(representation);
+    }
 }
