@@ -24,8 +24,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -66,7 +65,7 @@ class BlogServiceTest {
         );
         CreateBlog blogCredentials = new CreateBlog(fields);
 
-        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application("", user)));
+        when(applicationRepository.findByIdAndUser(any(), eq(user))).thenReturn(Optional.of(new Application("", user)));
         when(applicationFieldDefinitionService.findByIdAndApplication(any(),
                 anyString()
         )).thenReturn(Optional.of(new ApplicationFieldDefinition("name", "", true, FieldType.TEXT, new Application())));
@@ -81,7 +80,7 @@ class BlogServiceTest {
         User user = new User("", "");
         List<FieldRepresentationCredentials> newFields = List.of(new FieldRepresentationCredentials("1", "new field"));
 
-        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(new Application("", user)));
+        when(applicationRepository.findByIdAndUser(any(), eq(user))).thenReturn(Optional.of(new Application("", user)));
         when(applicationFieldDefinitionService.findByIdAndApplication(any(),
                 anyString()
         )).thenReturn(Optional.of(new ApplicationFieldDefinition("name", "", true, FieldType.TEXT, new Application())));
@@ -120,9 +119,10 @@ class BlogServiceTest {
         Application application = new Application("", user);
         Blog blog = new Blog(application);
 
-        when(applicationRepository.findById(anyString())).thenReturn(Optional.of(application));
+        String applicationId = application.getId();
+        when(applicationRepository.findByIdAndUser(eq(applicationId), eq(user))).thenReturn(Optional.of(application));
         when(blogRepository.findById(anyString())).thenReturn(Optional.of(blog));
 
-        assertDoesNotThrow(() -> blogService.delete(user, application.getId(), blog.getId()));
+        assertDoesNotThrow(() -> blogService.delete(user, applicationId, blog.getId()));
     }
 }

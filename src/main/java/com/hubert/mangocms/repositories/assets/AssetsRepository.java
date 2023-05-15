@@ -8,6 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AssetsRepository extends JpaRepository<Asset, String> {
-    List<Asset> findAssetsByApplication_User(User user);
     List<Asset> findAssetsByApplicationAndApplication_User(Application application, User applicationUser);
 }

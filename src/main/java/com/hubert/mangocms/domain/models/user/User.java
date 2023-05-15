@@ -43,4 +43,8 @@ public class User {
     public static String hash(String password) {
         return DigestUtils.sha256Hex(password);
     }
+
+    public boolean equals(User user) {
+        return id.equals(user.getId());
+    }
 }
