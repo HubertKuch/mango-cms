@@ -9,6 +9,5 @@ import java.util.Optional;
 
 public interface ApplicationRepository extends JpaRepository<Application, String> {
     List<Application> findByUser(User user);
-
     Optional<Application> findByIdAndUser(String id, User user);
 }

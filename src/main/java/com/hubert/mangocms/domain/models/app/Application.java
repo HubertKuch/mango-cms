@@ -22,12 +22,13 @@ public class Application {
     @ManyToOne
     @JsonIgnore
     private User user;
-    @OneToOne
-    @JoinColumn(name = "id")
-    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id", referencedColumnName = "application_id")
+    @MapsId
     private ApplicationKeys keys;
 
     public Application(String name, User user) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.createdAt = new Timestamp(System.currentTimeMillis());
         this.user = user;

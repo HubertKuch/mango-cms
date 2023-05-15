@@ -13,4 +13,8 @@ public class ApplicationKeysService {
     public ApplicationKeys findForApplication(String applicationId) {
         return applicationKeysRepository.findApplicationKeysById(applicationId);
     }
+
+    public ApplicationKeys saveKeys(ApplicationKeys applicationKeys) {
+        return applicationKeysRepository.save(applicationKeys);
+    }
 }

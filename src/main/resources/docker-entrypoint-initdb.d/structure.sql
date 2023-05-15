@@ -30,10 +30,9 @@ CREATE TABLE application_field_definitions
 
 CREATE TABLE application_keys
 (
-    id             VARCHAR(36) NOT NULL PRIMARY KEY,
     `unique`       VARCHAR(10) NOT NULL,
     api_key        VARCHAR(36) NOT NULL,
-    application_id VARCHAR(36) NOT NULL REFERENCES applications (id),
+    application_id VARCHAR(36) NOT NULL,
     CONSTRAINT `unq_app_key` UNIQUE (api_key, `unique`)
 );
 

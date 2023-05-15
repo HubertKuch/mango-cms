@@ -2,6 +2,7 @@ package com.hubert.mangocms.services.application;
 
 import com.hubert.mangocms.domain.exceptions.internal.InvalidRequestException;
 import com.hubert.mangocms.domain.models.app.Application;
+import com.hubert.mangocms.domain.models.app.ApplicationKeys;
 import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.requests.application.CreateApplication;
 import com.hubert.mangocms.repositories.application.ApplicationRepository;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 final public class ApplicationService {
     private final ApplicationRepository applicationRepository;
+    private final ApplicationKeysService applicationKeysService;
 
     public Application createApplication(User user, CreateApplication createApplication) {
         Application application = new Application(createApplication.name(), user);
