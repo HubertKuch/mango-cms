@@ -30,7 +30,7 @@ class ApplicationFieldDefinitionServiceTest {
     @BeforeEach
     void setUp() {
         this.applicationRepository = mock(ApplicationRepository.class);
-        ApplicationService applicationService = new ApplicationService(applicationRepository, null);
+        ApplicationService applicationService = new ApplicationService(applicationRepository);
         this.applicationFieldDefinitionRepository = mock(ApplicationFieldDefinitionRepository.class);
 
         this.applicationFieldDefinitionService = new ApplicationFieldDefinitionService(applicationService,

@@ -36,9 +36,6 @@ CREATE TABLE application_keys
     CONSTRAINT `unq_app_key` UNIQUE (api_key, `unique`)
 );
 
-ALTER TABLE application_keys
-    ADD CONSTRAINT `unq_app_key` UNIQUE (api_key, `unique`);
-
 CREATE TABLE blogs
 (
     id             VARCHAR(36) NOT NULL PRIMARY KEY,
