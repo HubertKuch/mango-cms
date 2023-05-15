@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.blog.fields;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hubert.mangocms.domain.models.app.ApplicationFieldDefinition;
 import com.hubert.mangocms.domain.models.blog.Blog;
 import jakarta.persistence.Entity;
@@ -22,6 +23,7 @@ public class ApplicationBlogFieldRepresentation {
     @JoinColumn(name = "definition_id")
     private ApplicationFieldDefinition definition;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "blog_id")
     private Blog blog;
 

@@ -12,7 +12,6 @@ import com.hubert.mangocms.domain.requests.blog.CreateBlog;
 import com.hubert.mangocms.domain.requests.blog.UpdateBlog;
 import com.hubert.mangocms.repositories.blog.BlogRepository;
 import com.hubert.mangocms.services.application.ApplicationBlogFieldRepresentationService;
-import com.hubert.mangocms.services.application.ApplicationFieldDefinitionService;
 import com.hubert.mangocms.services.application.ApplicationService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ public class BlogService {
     private final ApplicationBlogFieldRepresentationService applicationBlogFieldRepresentationService;
     private final ApplicationService applicationService;
     private final FieldRepresentationMapper fieldRepresentationMapper;
-    private final ApplicationFieldDefinitionService applicationFieldDefinitionService;
 
     public Optional<Blog> findById(String id) {
         return blogRepository.findById(id);
@@ -50,7 +48,7 @@ public class BlogService {
                 createBlog.fields()
         );
         List<ApplicationFieldDefinition> fieldDefinitions = fields.stream().map(ApplicationBlogFieldRepresentation::getDefinition).toList();
-        List<ApplicationFieldDefinition> requiredFields = applicationFieldDefinitionService.findRequiredByApplication(application);
+        List<ApplicationFieldDefinition> requiredFields = fieldRepresentationMapper.getApplicationFieldDefinitionService().findRequiredByApplication(application);
 
         boolean allRequiredFieldFilled = new HashSet<>(fieldDefinitions).containsAll(requiredFields);
 

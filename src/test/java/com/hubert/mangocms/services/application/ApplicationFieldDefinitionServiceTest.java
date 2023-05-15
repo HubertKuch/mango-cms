@@ -9,6 +9,7 @@ import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.requests.application.CreateDefinition;
 import com.hubert.mangocms.repositories.application.ApplicationFieldDefinitionRepository;
 import com.hubert.mangocms.repositories.application.ApplicationRepository;
+import com.hubert.mangocms.services.blog.BlogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,20 +48,23 @@ class ApplicationFieldDefinitionServiceTest {
     void givenApplication_shouldReturnApplicationDefinitions() throws AuthenticationException {
         Application application = getTestApplication();
 
-        when(applicationFieldDefinitionRepository.findAllByApplicationAndApplication_User(
-                any(),
+        when(applicationFieldDefinitionRepository.findAllByApplicationAndApplication_User(any(),
                 any()
-        )).thenReturn(List.of(
-                new ApplicationFieldDefinition("name","", true, FieldType.TEXT, application)
-        ));
+        )).thenReturn(List.of(new ApplicationFieldDefinition(
+                "name",
+                "",
+                true,
+                FieldType.TEXT,
+                application
+        )));
         when(applicationRepository.findByIdAndUser(anyString(), any())).thenReturn(Optional.of(application));
 
-        List<ApplicationFieldDefinition> definitions = applicationFieldDefinitionService.findDefinitionsByApplication(new User(), application.getId());
-
-        assertAll(
-                () -> assertEquals(1, definitions.size()),
-                () -> assertEquals("name", definitions.get(0).getName())
+        List<ApplicationFieldDefinition> definitions = applicationFieldDefinitionService.findDefinitionsByApplication(
+                new User(),
+                application.getId()
         );
+
+        assertAll(() -> assertEquals(1, definitions.size()), () -> assertEquals("name", definitions.get(0).getName()));
     }
 
     @Test
@@ -69,9 +73,10 @@ class ApplicationFieldDefinitionServiceTest {
 
         when(applicationRepository.findByIdAndUser(anyString(), any())).thenReturn(Optional.empty());
 
-        assertAll(
-                () -> assertThrows(AuthenticationException.class, () -> applicationFieldDefinitionService.findDefinitionsByApplication(new User(), application.getId()))
-        );
+        assertAll(() -> assertThrows(
+                AuthenticationException.class,
+                () -> applicationFieldDefinitionService.findDefinitionsByApplication(new User(), application.getId())
+        ));
     }
 
     @Test
@@ -79,15 +84,18 @@ class ApplicationFieldDefinitionServiceTest {
         Application application = getTestApplication();
 
         when(applicationRepository.findById(anyString())).thenReturn(Optional.of(application));
-        when(applicationFieldDefinitionRepository.existsByNameAndApplication(anyString(), eq(application))).thenReturn(false);
+        when(applicationFieldDefinitionRepository.existsByNameAndApplication(anyString(), eq(application))).thenReturn(
+                false);
 
         assertDoesNotThrow(() -> {
-            CreateDefinition createDefinition = new CreateDefinition("name",  "",true, FieldType.TEXT);
-            ApplicationFieldDefinition definition = applicationFieldDefinitionService.addDefinition(application.getUser(), "", createDefinition);
-
-            assertAll(
-                    () -> assertEquals("name", definition.getName())
+            CreateDefinition createDefinition = new CreateDefinition("name", "", true, FieldType.TEXT);
+            ApplicationFieldDefinition definition = applicationFieldDefinitionService.addDefinition(
+                    application.getUser(),
+                    "",
+                    createDefinition
             );
+
+            assertAll(() -> assertEquals("name", definition.getName()));
         });
     }
 
@@ -98,7 +106,7 @@ class ApplicationFieldDefinitionServiceTest {
         when(applicationRepository.findById(anyString())).thenReturn(Optional.of(application));
 
         assertThrows(AuthenticationException.class, () -> {
-            CreateDefinition createDefinition = new CreateDefinition("name", "",true, FieldType.TEXT);
+            CreateDefinition createDefinition = new CreateDefinition("name", "", true, FieldType.TEXT);
             applicationFieldDefinitionService.addDefinition(new User(), "", createDefinition);
         });
     }
@@ -108,10 +116,11 @@ class ApplicationFieldDefinitionServiceTest {
         Application application = getTestApplication();
 
         when(applicationRepository.findById(anyString())).thenReturn(Optional.of(application));
-        when(applicationFieldDefinitionRepository.existsByNameAndApplication(anyString(), eq(application))).thenReturn(true);
+        when(applicationFieldDefinitionRepository.existsByNameAndApplication(anyString(), eq(application))).thenReturn(
+                true);
 
         assertThrows(ConflictException.class, () -> {
-            CreateDefinition createDefinition = new CreateDefinition("name", "",true, FieldType.TEXT);
+            CreateDefinition createDefinition = new CreateDefinition("name", "", true, FieldType.TEXT);
             applicationFieldDefinitionService.addDefinition(application.getUser(), "", createDefinition);
         });
     }

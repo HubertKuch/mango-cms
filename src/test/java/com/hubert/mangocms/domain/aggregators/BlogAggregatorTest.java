@@ -38,7 +38,7 @@ class BlogAggregatorTest {
 
     @Test
     void givenValidBlogAndFields_shouldParseToAggregatedResponse() throws InvalidRequestException {
-        Blog blog = new Blog(UUID.randomUUID().toString(), null, null, null);
+        Blog blog = new Blog(UUID.randomUUID().toString(), null, null, null, List.of());
 
         when(blogService.findById(anyString())).thenReturn(Optional.of(blog));
 
