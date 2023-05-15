@@ -1,9 +1,8 @@
 package com.hubert.mangocms.domain.models.app;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,11 +23,14 @@ public class ApplicationKeys {
     private String unique;
     @Column(unique = true)
     private String apiKey;
+    @JsonIgnore
+    @OneToOne(mappedBy = "keys", cascade = CascadeType.ALL)
+    private Application application;
 
     public static ApplicationKeys from(Application application) {
         String appApiKey = UUID.randomUUID().toString();
         String appUnique = RandomStringUtils.random(10, true, false);
 
-        return new ApplicationKeys(application.getId(), appUnique, appApiKey);
+        return new ApplicationKeys(application.getId(), appUnique, appApiKey, application);
     }
 }
