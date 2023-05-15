@@ -22,9 +22,10 @@ public class Application {
     @ManyToOne
     @JsonIgnore
     private User user;
+    @MapsId
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id", referencedColumnName = "application_id")
-    @MapsId
     private ApplicationKeys keys;
 
     public Application(String name, User user) {
