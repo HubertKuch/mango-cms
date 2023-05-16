@@ -2,14 +2,29 @@ package com.hubert.mangocms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Vector;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class MangoCmsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MangoCmsApplication.class, args);
+    }
+
+    @Bean
+    public WebMvcConfigurer cors() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry
+                        .addMapping("/**")
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTION")
+                        .allowedOrigins("*")
+                        .allowedHeaders("Content-Type", "Accept", "Cookie", "Set-Cookie", "User-Agent", "Connection");
+            }
+        };
     }
 
 }
