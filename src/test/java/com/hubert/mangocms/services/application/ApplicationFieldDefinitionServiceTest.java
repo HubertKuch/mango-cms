@@ -9,6 +9,7 @@ import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.requests.application.CreateDefinition;
 import com.hubert.mangocms.repositories.application.ApplicationFieldDefinitionRepository;
 import com.hubert.mangocms.repositories.application.ApplicationRepository;
+import com.hubert.mangocms.repositories.blog.BlogRepository;
 import com.hubert.mangocms.services.blog.BlogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ class ApplicationFieldDefinitionServiceTest {
         this.applicationFieldDefinitionRepository = mock(ApplicationFieldDefinitionRepository.class);
 
         this.applicationFieldDefinitionService = new ApplicationFieldDefinitionService(applicationService,
-                applicationFieldDefinitionRepository
+                applicationFieldDefinitionRepository, mock(BlogRepository.class)
         );
     }
 

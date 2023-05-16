@@ -13,18 +13,4 @@ public class MangoCmsApplication {
         SpringApplication.run(MangoCmsApplication.class, args);
     }
 
-    @Bean
-    public WebMvcConfigurer cors() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry
-                        .addMapping("/**")
-                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTION")
-                        .allowedOrigins("*")
-                        .allowedHeaders("Content-Type", "Accept", "Cookie", "Set-Cookie", "User-Agent", "Connection");
-            }
-        };
-    }
-
 }

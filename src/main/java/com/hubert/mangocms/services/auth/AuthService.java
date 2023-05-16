@@ -56,6 +56,7 @@ public class AuthService {
 
         cookie.setMaxAge((int) authConfiguration.getCookie().getAge().toSeconds());
         cookie.setPath("/");
+        cookie.setAttribute("SameSite", "Lax");
         cookie.setSecure(authConfiguration.getCookie().isSecure());
         cookie.setHttpOnly(authConfiguration.getCookie().isHttpOnly());
 
