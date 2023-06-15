@@ -18,14 +18,27 @@ CREATE TABLE applications
     user_id    VARCHAR(36) NOT NULL REFERENCES users (id)
 );
 
-CREATE TABLE application_field_definitions
+create table entity_model
 (
     id             VARCHAR(36) NOT NULL PRIMARY KEY,
-    name           TEXT        NOT NULL,
-    is_required    BOOLEAN     NOT NULL DEFAULT FALSE,
-    type           TEXT        NOT NULL,
-    default_value  TEXT,
-    application_id VARCHAR(36) NOT NULL REFERENCES applications (id)
+    name           text        not null,
+    application_id varchar(36) not null references applications (id)
+);
+
+create table entity_field_definition
+(
+    id          VARCHAR(36) NOT NULL PRIMARY KEY,
+    name        text        not null,
+    type        text        not null,
+    is_nullable bool        not null default false,
+    entity_id   varchar(36) not null references entity_model (id)
+);
+
+create table entity_field_representation
+(
+    id            VARCHAR(36) NOT NULL PRIMARY KEY,
+    value         text,
+    definition_id varchar(36) not null references entity_field_definition (id)
 );
 
 CREATE TABLE application_keys
@@ -34,23 +47,6 @@ CREATE TABLE application_keys
     api_key        VARCHAR(36) NOT NULL,
     application_id VARCHAR(36) NOT NULL,
     CONSTRAINT `unq_app_key` UNIQUE (api_key, `unique`)
-);
-
-CREATE TABLE blogs
-(
-    id             VARCHAR(36) NOT NULL PRIMARY KEY,
-    created_at     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    updated_at     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-    application_id VARCHAR(36) NOT NULL REFERENCES applications (id)
-        ON DELETE CASCADE
-);
-
-CREATE TABLE blog_field_representation
-(
-    id            VARCHAR(36) NOT NULL PRIMARY KEY,
-    value         TEXT,
-    definition_id VARCHAR(36) NOT NULL REFERENCES application_field_definitions (id),
-    blog_id       VARCHAR(36) NOT NULL REFERENCES blogs (id)
 );
 
 CREATE TABLE assets
