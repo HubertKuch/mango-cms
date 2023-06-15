@@ -19,7 +19,7 @@ import java.util.UUID;
 public class EntityModel {
     @Id
     @Builder.Default
-    private String id = UUID.randomUUID().toString();
+    private final String id = UUID.randomUUID().toString();
     private String name;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "application_id", referencedColumnName = "id")
