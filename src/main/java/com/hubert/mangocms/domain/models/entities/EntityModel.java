@@ -21,10 +21,10 @@ public class EntityModel {
     @Builder.Default
     private String id = UUID.randomUUID().toString();
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "application_id", referencedColumnName = "id")
     private Application application;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "application_id")
     private List<EntityFieldDefinition> definitions;
 }

@@ -24,7 +24,10 @@ public class EntityFieldDefinition {
     @Enumerated(EnumType.STRING)
     private FieldType type;
     private boolean isNullable;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "entity_id", referencedColumnName = "id")
     private EntityModel model;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "definition_id", referencedColumnName = "id")
+    private List<EntityFieldRepresentation> representations;
 }
