@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -29,7 +30,7 @@ class EntityModelServiceTest {
         Application application = new Application();
         CreateEntityModel createEntityModel = new CreateEntityModel(name);
 
-        when(entityModelRepository.existsByApplicationAndName(eq(application), anyString())).thenReturn(false);
+        when(entityModelRepository.existsByApplicationAndName(eq(application), eq(name))).thenReturn(false);
         when(entityModelRepository.save(any())).thenReturn(EntityModel.builder()
                 .name(name)
                 .application(application)
@@ -40,5 +41,21 @@ class EntityModelServiceTest {
 
         assertEquals(name, model.getName());
         assertEquals(application, model.getApplication());
+    }
+
+    @Test
+    void givenValidExistingModel_shouldThrowException() throws ConflictException {
+        String name = "Post";
+        Application application = new Application();
+        CreateEntityModel createEntityModel = new CreateEntityModel(name);
+
+        when(entityModelRepository.existsByApplicationAndName(eq(application), eq(name))).thenReturn(true);
+        when(entityModelRepository.save(any())).thenReturn(EntityModel.builder()
+                .name(name)
+                .application(application)
+                .build()
+        );
+
+        assertThrows(ConflictException.class, () -> entityModelService.add(application, createEntityModel));
     }
 }

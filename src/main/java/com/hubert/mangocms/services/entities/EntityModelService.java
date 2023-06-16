@@ -4,9 +4,7 @@ import com.hubert.mangocms.domain.exceptions.internal.ConflictException;
 import com.hubert.mangocms.domain.models.app.Application;
 import com.hubert.mangocms.domain.models.entities.EntityModel;
 import com.hubert.mangocms.domain.requests.entities.CreateEntityModel;
-import com.hubert.mangocms.middleware.UserApplicationMiddleware;
 import com.hubert.mangocms.repositories.entities.EntityModelRepository;
-import com.hubert.mangocms.services.application.ApplicationService;
 import org.springframework.stereotype.Service;
 
 @Service
