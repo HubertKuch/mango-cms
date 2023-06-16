@@ -44,7 +44,7 @@ class EntityModelServiceTest {
     }
 
     @Test
-    void givenValidExistingModel_shouldThrowException() throws ConflictException {
+    void givenValidExistingModel_shouldThrowException()  {
         String name = "Post";
         Application application = new Application();
         CreateEntityModel createEntityModel = new CreateEntityModel(name);
