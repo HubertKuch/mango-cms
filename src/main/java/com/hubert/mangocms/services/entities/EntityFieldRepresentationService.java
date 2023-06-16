@@ -17,7 +17,6 @@ public class EntityFieldRepresentationService {
     private final EntityFieldRepresentationRepository representationRepository;
     private final EntityFieldDefinitionService definitionService;
 
-    @Transactional
     public EntityFieldRepresentation persist(RawFieldRepresentation rawFieldRepresentation) throws FieldDefinitionDoesntExistsException, FieldValidationException {
         EntityFieldDefinition fieldDefinition = definitionService.findById(rawFieldRepresentation.definitionId()).orElseThrow(FieldDefinitionDoesntExistsException::new);
 
@@ -34,6 +33,7 @@ public class EntityFieldRepresentationService {
         return representationRepository.save(representation);
     }
 
+    @Transactional(rollbackFor = {FieldDefinitionDoesntExistsException.class, FieldValidationException.class})
     public List<EntityFieldRepresentation> persist(List<RawFieldRepresentation> rawRepresentations) throws FieldDefinitionDoesntExistsException, FieldValidationException {
         List<EntityFieldRepresentation> representations = new ArrayList<>(rawRepresentations.size());
 
