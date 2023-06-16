@@ -17,15 +17,6 @@ public record EntityModelService(
         ApplicationService applicationService
 ) {
     public EntityModel add(User loggedInUser, String applicationId, CreateEntityModel createEntityModel) throws AuthorizationException {
-        userApplicationMiddleware.userMustBeOwnerById(loggedInUser, applicationId);
-
-        Application application = applicationService.findById(applicationId).get();
-
-        EntityModel entityModel = EntityModel.builder()
-                .name(createEntityModel.name())
-                .application(application)
-                .build();
-
-        return entityModelRepository.save(entityModel);
+        return null;
     }
 }
