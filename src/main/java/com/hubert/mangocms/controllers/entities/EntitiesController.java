@@ -11,6 +11,8 @@ import com.hubert.mangocms.middleware.UserApplicationMiddleware;
 import com.hubert.mangocms.services.entities.EntityModelService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/applications/{applicationId}/entities/")
 public record EntitiesController(EntityModelService entityModelService, UserApplicationMiddleware middleware) {
@@ -24,5 +26,16 @@ public record EntitiesController(EntityModelService entityModelService, UserAppl
         middleware.userMustBeOwnerById(user, application.getId());
 
         return entityModelService.add(application, data);
+    }
+
+    @Restricted
+    @GetMapping
+    public List<EntityModel> getUserEntities(
+            Application application,
+            @RequestAttribute User user
+    ) throws AuthorizationException {
+        middleware.userMustBeOwnerById(user, application.getId());
+
+        return entityModelService.findByApplication(application);
     }
 }

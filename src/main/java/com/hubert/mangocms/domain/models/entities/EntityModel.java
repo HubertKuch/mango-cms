@@ -25,6 +25,7 @@ public class EntityModel {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "application_id", referencedColumnName = "id")
     private Application application;
+    @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "application_id")
     private List<EntityFieldDefinition> definitions = new ArrayList<>();
