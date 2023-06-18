@@ -4,7 +4,6 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.hubert.mangocms.configuration.AuthConfiguration;
 import com.hubert.mangocms.domain.exceptions.auth.TokenExpiredException;
-import com.hubert.mangocms.domain.exceptions.internal.AuthenticationException;
 import com.hubert.mangocms.domain.exceptions.internal.InvalidRequestException;
 import com.hubert.mangocms.domain.models.user.User;
 import com.hubert.mangocms.domain.models.user.claims.UserClaims;

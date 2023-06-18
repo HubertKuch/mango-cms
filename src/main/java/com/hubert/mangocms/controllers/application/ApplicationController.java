@@ -12,12 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/applications")
-final public class ApplicationController {
-
-    private final ApplicationService applicationService;
-
+public record ApplicationController(ApplicationService applicationService)  {
     @Restricted
     @GetMapping("/")
     public List<Application> getApplications(@RequestAttribute User user) {
