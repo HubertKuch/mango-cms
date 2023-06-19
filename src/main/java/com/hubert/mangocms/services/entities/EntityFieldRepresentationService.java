@@ -7,11 +7,13 @@ import com.hubert.mangocms.domain.models.entities.fields.definition.EntityFieldD
 import com.hubert.mangocms.domain.models.entities.fields.representation.EntityFieldRepresentation;
 import com.hubert.mangocms.repositories.entities.EntityFieldRepresentationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class EntityFieldRepresentationService {
     private final EntityFieldRepresentationRepository representationRepository;

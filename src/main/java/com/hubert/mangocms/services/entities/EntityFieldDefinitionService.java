@@ -5,9 +5,11 @@ import com.hubert.mangocms.domain.models.entities.EntityModel;
 import com.hubert.mangocms.domain.models.entities.fields.definition.EntityFieldDefinition;
 import com.hubert.mangocms.domain.requests.entities.CreateFieldDefinition;
 import com.hubert.mangocms.repositories.entities.EntityFieldDefinitionRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public record EntityFieldDefinitionService(
         EntityFieldDefinitionRepository entityFieldDefinitionRepository
 ) {

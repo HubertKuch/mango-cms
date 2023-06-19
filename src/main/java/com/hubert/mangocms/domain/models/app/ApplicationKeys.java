@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class ApplicationKeys {
     @Column(unique = true)
     private String apiKey;
     @JsonIgnore
+    @ToString.Exclude
     @OneToOne(mappedBy = "keys", cascade = CascadeType.ALL)
     private Application application;
 

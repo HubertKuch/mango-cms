@@ -8,6 +8,7 @@ import com.hubert.mangocms.repositories.entities.EntityModelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public record EntityModelService(
@@ -15,6 +16,10 @@ public record EntityModelService(
 ) {
     public List<EntityModel> findByApplication(Application application) {
         return entityModelRepository.findByApplication(application);
+    }
+
+    public Optional<EntityModel> findById(String id) {
+        return entityModelRepository.findById(id);
     }
 
     public EntityModel add(Application application, CreateEntityModel createEntityModel) throws ConflictException {

@@ -12,8 +12,8 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "applications")
 @AllArgsConstructor
+@Entity(name = "applications")
 public class Application {
     @Id
     private String id = UUID.randomUUID().toString();

@@ -1,5 +1,6 @@
 package com.hubert.mangocms.domain.models.entities.fields.definition;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hubert.mangocms.domain.models.entities.EntityModel;
 import com.hubert.mangocms.domain.models.entities.fields.representation.EntityFieldRepresentation;
 import jakarta.persistence.*;
@@ -24,9 +25,11 @@ public class EntityFieldDefinition {
     @Enumerated(EnumType.STRING)
     private FieldType type;
     private boolean isNullable;
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "entity_id", referencedColumnName = "id")
     private EntityModel model;
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "definition_id", referencedColumnName = "id")
     private List<EntityFieldRepresentation> representations;
